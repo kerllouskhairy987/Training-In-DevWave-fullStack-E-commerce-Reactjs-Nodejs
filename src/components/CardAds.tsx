@@ -2,11 +2,12 @@ interface IProps {
   title: string;
   imageURL: string;
   link: string;
+  classname?:string
 }
 
-const CardAds = ({ title, imageURL, link }: IProps) => {
+const CardAds = ({ title, imageURL, link,classname }: IProps) => {
   return (
-    <div className="bg-white flex flex-col   p-10 shadow-md gap-4 ">
+    <div className={`${classname} bg-white flex flex-col   !p-4 shadow-md gap-4`} >
       <h4 className="text-black   text-[10px]  font-semibold md:text-[16px] md:font-bold break-words ">
         {title}
       </h4>
@@ -30,7 +31,7 @@ const CardAds = ({ title, imageURL, link }: IProps) => {
       </div>
       <a
         href=""
-        className="text-[#1F8394] mt-2 md:mt-6  text-[8px]   md:text-[16px]"
+        className="text-[#1F8394] !mt-2 md:!mt-6  text-[8px]   md:text-[16px]"
       >
         {link}
       </a>

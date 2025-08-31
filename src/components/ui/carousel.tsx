@@ -22,6 +22,7 @@ type CarouselProps = {
   plugins?: CarouselPlugin
   orientation?: "horizontal" | "vertical"
   setApi?: (api: CarouselApi) => void
+
 }
 
 type CarouselContextProps = {
@@ -52,6 +53,7 @@ function Carousel({
   plugins,
   className,
   children,
+  
   ...props
 }: React.ComponentProps<"div"> & CarouselProps) {
   const [carouselRef, api] = useEmblaCarousel(
@@ -179,10 +181,10 @@ function CarouselPrevious({ className, ...props }: React.ComponentProps<typeof B
 
   return (
     <Button
-      variant="ghost"
-      size="icon"
+      variant="link"
+      
       className={cn(
-        "absolute z-10 h-40 w-20   transition-colors",
+        "absolute z-10   transition-colors",
         "flex items-center justify-center",
         orientation === "horizontal"
           ? "top-1/2 -left-[-30px] -translate-y-1/2"
@@ -193,7 +195,7 @@ function CarouselPrevious({ className, ...props }: React.ComponentProps<typeof B
       onClick={scrollPrev}
       {...props}
     >
-      <ChevronLeft className=" size-32 text-black" strokeWidth={0.8} /> 
+      <ChevronLeft className={`${className} `} strokeWidth={0.8} /> 
       <span className="sr-only">Previous</span>
     </Button>
   )
@@ -204,21 +206,21 @@ function CarouselNext({ className, ...props }: React.ComponentProps<typeof Butto
 
   return (
     <Button
-      variant="ghost"
+      variant="link"
       size="icon"
       className={cn(
-        "absolute z-10 h-40 w-20  transition-colors",
+        "absolute z-10  transition-colors",
         "flex items-center justify-center",
         orientation === "horizontal"
           ? "top-1/2 -right-[-30px] -translate-y-1/2"
           : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
-        className
+       className
       )}
       disabled={!canScrollNext}
       onClick={scrollNext}
       {...props}
     >
-      <ChevronRight className="size-32  text-black" strokeWidth={0.8} /> 
+      <ChevronRight className= {`${className} `} strokeWidth={0.8} /> 
       <span className="sr-only">Next</span>
     </Button>
   )
