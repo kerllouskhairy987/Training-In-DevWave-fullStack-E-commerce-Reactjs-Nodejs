@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Login() {
     return (
@@ -47,9 +48,11 @@ export default function Login() {
                         <span className="px-2 text-xs text-gray-500">New to Amazon?</span>
                         <div className="flex-grow h-px bg-gray-300"></div>
                     </div>
-                    <button className="w-full mt-4 bg-gray-200 hover:bg-gray-300 text-black py-2 rounded-sm border border-gray-400">
-                        Create your Amazon account
-                    </button>
+                    <Link to={"/signup"}>
+                        <button className="cursor-pointer w-full mt-4 bg-gray-200 hover:bg-gray-300 text-black py-2 rounded-sm border border-gray-400">
+                            Create your Amazon account
+                        </button>
+                    </Link>
                 </div>
             </div>
         </>

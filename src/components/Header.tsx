@@ -174,10 +174,10 @@ const Header: React.FC = () => {
           </div>
 
           {/* Account */}
-          <div className="hidden md:flex flex-col text-left shrink-0">
+          <Link to="/login" className="hidden md:flex flex-col text-left shrink-0">
             <span className="text-xs text-gray-200">Hello, sign in</span>
             <span className="font-bold text-sm">Account & Lists ▾</span>
-          </div>
+          </Link>
 
           {/* Orders */}
           <div className="hidden md:flex flex-col text-left shrink-0">
