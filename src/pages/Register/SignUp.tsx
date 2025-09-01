@@ -1,4 +1,3 @@
-// import React from 'react'
 import { useFormik } from "formik";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -12,16 +11,15 @@ export default function SignUp() {
   let navigate = useNavigate();
 
   async function handleRegister(formValues: registerValues) {
-    // console.log(formValues)
     const { email, password } = formValues;
     const response = await axios.post(
       `https://training-in-dev-wave-full-stack-e-c.vercel.app/api/auth/register`,
       { email, password }
     );
-    console.log(response);
-    // if (data.success == 'true') {
-    //     navigate('/logIn')
-    // }
+
+    if (response.data.success === true) {
+      navigate("/logIn");
+    }
   }
 
   const formik = useFormik({
