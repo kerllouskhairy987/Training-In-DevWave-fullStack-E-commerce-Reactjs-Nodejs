@@ -4,8 +4,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 interface registerValues {
-    email:string;
-    password:string;
+    email: string;
+    password: string;
 }
 
 export default function SignUp() {
@@ -14,8 +14,8 @@ export default function SignUp() {
 
     async function handleRegister(formValues: registerValues) {
         // console.log(formValues)
-        const {email,password}= formValues
-        const response = await axios.post(`https://training-in-dev-wave-full-stack-e-c.vercel.app/api/auth/register`, {email,password})
+        const { email, password } = formValues
+        const response = await axios.post(`https://training-in-dev-wave-full-stack-e-c.vercel.app/api/auth/register`, { email, password })
         console.log(response)
         // if (data.success == 'true') {
         //     navigate('/logIn')
