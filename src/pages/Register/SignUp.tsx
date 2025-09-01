@@ -2,22 +2,32 @@
 import { useFormik } from 'formik'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import * as yup from 'yup'
 
 interface registerValues {
-    email:string;
-    password:string;
+    email: string;
+    password: string;
 }
 
 export default function SignUp() {
 
     let navigate = useNavigate()
 
+
+    let validate = yup.object().shape({
+        email: yup.string().email('email is invalid').required('please enter your email address'),
+        password: yup.string().matches(/^[A-Z][a-z0-9]{5,10}$/, 'Password must start with a capital letter and be 6-11 letters long').required('password is required')
+    })
+
+
+
     async function handleRegister(formValues: registerValues) {
-        // console.log(formValues)
-        const {email,password}= formValues
-        const response = await axios.post(`https://training-in-dev-wave-full-stack-e-c.vercel.app/api/auth/register`, {email,password})
+        console.log(formValues)
+        const response = await axios.post(`https://training-in-dev-wave-full-stack-e-c.vercel.app/api/auth/register`, formValues)
+            .then(function(x){console.log(x)})
+            .catch(function(x){console.log(x)})
         console.log(response)
-        // if (data.success == 'true') {
+        // if (response.data.success === true) {
         //     navigate('/logIn')
         // }
     }
@@ -28,6 +38,7 @@ export default function SignUp() {
             email: "",
             password: ""
         },
+        validationSchema: validate,
         onSubmit: handleRegister
 
     })
@@ -67,6 +78,9 @@ export default function SignUp() {
                                 placeholder="you@example.com"
                                 className="text-black w-full p-2 border border-gray-400 rounded-md mb-4 focus:ring-1 focus:ring-yellow-500 focus:border-yellow-500 outline-none"
                             />
+                            {formik.touched.email && formik.errors.email ? (
+                                <div className='text-red-600' >{formik.errors.email}</div>
+                            ) : null}
 
                             {/* Password */}
                             <label htmlFor='password' className="block text-sm font-medium mb-1 text-black">Password</label>
@@ -80,9 +94,13 @@ export default function SignUp() {
                                 placeholder="At least 6 characters"
                                 className="text-black w-full p-2 border border-gray-400 rounded-md mb-1 focus:ring-1 focus:ring-yellow-500 focus:border-yellow-500 outline-none"
                             />
-                            <p className="text-xs text-gray-600 mb-4">
+                            {/* <p className="text-xs text-gray-600 mb-4">
                                 Passwords must be at least 6 characters.
-                            </p>
+                            </p> */}
+                            {formik.touched.password && formik.errors.password ? (
+                                <div className='text-red-600'>{formik.errors.password}</div>
+                            ) : null}
+
 
                             {/* Create Button */}
                             <button type='submit' className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-medium py-2 rounded-md">
