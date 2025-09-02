@@ -3,6 +3,8 @@ import { useFormik } from 'formik'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup'
+import { useState } from 'react';
+
 
 interface registerValues {
     email: string;
@@ -10,6 +12,8 @@ interface registerValues {
 }
 
 export default function SignUp() {
+    const [apiError, setApiError] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
 
     let navigate = useNavigate()
 
@@ -21,15 +25,20 @@ export default function SignUp() {
 
 
 
-    async function handleRegister(formValues: registerValues) {
+    function handleRegister(formValues: registerValues) {
+        setIsLoading(true);
         console.log(formValues)
-        const response = await axios.post(`https://training-in-dev-wave-full-stack-e-c.vercel.app/api/auth/register`, formValues)
-            .then(function(x){console.log(x)})
-            .catch(function(x){console.log(x)})
-        console.log(response)
-        // if (response.data.success === true) {
-        //     navigate('/logIn')
-        // }
+        axios.post(`https://training-in-dev-wave-full-stack-e-c.vercel.app/api/auth/register`, formValues)
+            .then((apiResponse) => {
+                setIsLoading(false);
+                navigate('/logIn')
+            })
+            .catch((apiResponse) => {
+                setApiError(apiResponse?.response?.data?.message);
+                console.log(apiResponse?.response?.data?.message);
+                setIsLoading(false)
+
+            })
     }
 
 
@@ -46,22 +55,27 @@ export default function SignUp() {
 
 
 
-  return (
-    <>
-      <div>
-        <div className="flex flex-col items-center min-h-screen bg-gray-100">
-          {/* Logo */}
-          <div className="mt-10">
-            <img
-              className="h-12"
-              src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg"
-              alt="Amazon Logo"
-            />
-          </div>
+    return (
+        <>
+            <div>
 
-          {/* Register Card */}
-          <div className="bg-white w-96 p-6 rounded-lg border border-gray-300 mt-6 shadow-sm">
-            <h1 className="text-2xl font-semibold mb-4">Create account</h1>
+                <div className="flex flex-col items-center min-h-screen bg-gray-100">
+
+                    {/* Logo */}
+                    <div className="mt-10">
+                        <img
+                            className="h-12"
+                            src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg"
+                            alt="Amazon Logo"
+                        />
+                    </div>
+
+                    <div className='text-red-600' >{apiError}</div>
+
+
+                    {/* Register Card */}
+                    <div className="bg-white w-96 p-6 rounded-lg border border-gray-300 mt-6 shadow-sm">
+                        <h1 className="text-2xl font-semibold mb-4">Create account</h1>
 
                         <form onSubmit={formik.handleSubmit}>
                             {/* Email */}
@@ -100,38 +114,43 @@ export default function SignUp() {
                             ) : null}
 
 
-              {/* Create Button */}
-              <button
-                type="submit"
-                className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-medium py-2 rounded-md"
-              >
-                Create your Amazon account
-              </button>
-            </form>
+                            {/* Create Button */}
+                            {isLoading ? <button
+                                type="button"
+                                disabled
+                                className="w-full bg-yellow-400 text-black font-medium py-2 rounded-md">
 
-            {/* Legal text */}
-            <p className="mt-4 text-xs text-gray-600">
-              By creating an account, you agree to Amazon's{" "}
-              <a href="#" className="text-blue-600 hover:underline">
-                Conditions of Use
-              </a>{" "}
-              and{" "}
-              <a href="#" className="text-blue-600 hover:underline">
-                Privacy Notice
-              </a>
-              .
-            </p>
+                                loading
+                            </button> : <button
+                                type="submit"
+                                className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-medium py-2 rounded-md">
 
-            {/* Sign in link */}
-            <div className="mt-6 text-sm text-black">
-              Already have an account?{" "}
-              <a href="/login" className="text-blue-600 hover:underline ">
-                Sign in
-              </a>
+                                Create your Amazon account
+                            </button>}
+                        </form>
+                        {/* Legal text */}
+                        <p className="mt-4 text-xs text-gray-600">
+                            By creating an account, you agree to Amazon's{" "}
+                            <a href="#" className="text-blue-600 hover:underline">
+                                Conditions of Use
+                            </a>{" "}
+                            and{" "}
+                            <a href="#" className="text-blue-600 hover:underline">
+                                Privacy Notice
+                            </a>
+                            .
+                        </p>
+
+                        {/* Sign in link */}
+                        <div className="mt-6 text-sm text-black">
+                            Already have an account?{" "}
+                            <a href="/login" className="text-blue-600 hover:underline ">
+                                Sign in
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
+        </>
+    );
 }

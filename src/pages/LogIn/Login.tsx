@@ -1,55 +1,204 @@
 import React from 'react'
+import { useFormik } from 'formik'
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import * as yup from 'yup'
+import { useState } from 'react';
+
+
+interface registerValues {
+    email: string;
+    password: string;
+}
 
 export default function Login() {
+
+    const [apiError, setApiError] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
+
+    let navigate = useNavigate()
+
+
+    let validate = yup.object().shape({
+        email: yup.string().email('email is invalid').required('please enter your email address'),
+        password: yup.string().matches(/^[A-Z][a-z0-9]{5,10}$/, 'Password must start with a capital letter and be 6-11 letters long').required('password is required')
+    })
+
+
+
+    function handleRegister(formValues: registerValues) {
+        setIsLoading(true);
+        console.log(formValues)
+        axios.post(`https://training-in-dev-wave-full-stack-e-c.vercel.app/api/auth/login`, formValues)
+            .then((apiResponse) => {
+                // setApiError(apiResponse?.response?.data?.message);
+                setIsLoading(false);
+                // navigate('/')
+            })
+            .catch((apiResponse) => {
+                setApiError(apiResponse?.response?.data?.message);
+                console.log(apiResponse?.response?.data?.message);
+                setIsLoading(false)
+
+            })
+    }
+
+
+    const formik = useFormik({
+        initialValues: {
+            email: "",
+            password: ""
+        },
+        validationSchema: validate,
+        onSubmit: handleRegister
+
+    })
     return (
+        // <>
+        //     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
+        //         {/* Logo */}
+        //         <div className="mb-6">
+        //             <img
+        //                 src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg"
+        //                 alt="Amazon"
+        //                 className="h-10"
+        //             />
+        //         </div>
+
+        //         {/* Card */}
+        //         <div className="bg-white w-80 p-6 border border-gray-300 rounded-md shadow-sm">
+        //             <h1 className="text-2xl font-semibold mb-4">Sign in</h1>
+
+        //             {/* Email input */}
+        //             <label className="block mb-2 text-sm font-medium text-black">Email or mobile phone number</label>
+        //             <input
+        //                 type="text"
+        //                 className=" text-black w-full p-2 mb-4 border border-gray-400 rounded-sm focus:outline-none focus:ring-2 focus:ring-yellow-500"
+        //             />
+
+        //             {/* Continue button */}
+        //             <button className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-medium py-2 rounded-sm mb-4">
+        //                 Continue
+        //             </button>
+
+        //             <p className="text-xs mb-4  text-black">
+        //                 By continuing, you agree to Amazon's{" "}
+        //                 <span className="text-blue-600 hover:underline cursor-pointer">Conditions of Use</span>{" "}
+        //                 and{" "}
+        //                 <span className="text-blue-600 hover:underline cursor-pointer">Privacy Notice</span>.
+        //             </p>
+
+        //             {/* Need help */}
+        //             <p className="text-blue-600 text-sm cursor-pointer hover:underline">Need help?</p>
+        //         </div>
+
+        //         {/* New account */}
+        //         <div className="mt-6 w-80">
+        //             <div className="flex items-center">
+        //                 <div className="flex-grow h-px bg-gray-300"></div>
+        //                 <span className="px-2 text-xs text-gray-500">New to Amazon?</span>
+        //                 <div className="flex-grow h-px bg-gray-300"></div>
+        //             </div>
+        //             <button className="w-full mt-4 bg-gray-200 hover:bg-gray-300 text-black py-2 rounded-sm border border-gray-400">
+        //                 Create your Amazon account
+        //             </button>
+        //         </div>
+        //     </div>
+        // </>
         <>
-            <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
-                {/* Logo */}
-                <div className="mb-6">
-                    <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg"
-                        alt="Amazon"
-                        className="h-10"
-                    />
-                </div>
+            <div>
 
-                {/* Card */}
-                <div className="bg-white w-80 p-6 border border-gray-300 rounded-md shadow-sm">
-                    <h1 className="text-2xl font-semibold mb-4">Sign in</h1>
+                <div className="flex flex-col items-center min-h-screen bg-gray-100">
 
-                    {/* Email input */}
-                    <label className="block mb-2 text-sm font-medium text-black">Email or mobile phone number</label>
-                    <input
-                        type="text"
-                        className=" text-black w-full p-2 mb-4 border border-gray-400 rounded-sm focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                    />
-
-                    {/* Continue button */}
-                    <button className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-medium py-2 rounded-sm mb-4">
-                        Continue
-                    </button>
-
-                    <p className="text-xs mb-4  text-black">
-                        By continuing, you agree to Amazon's{" "}
-                        <span className="text-blue-600 hover:underline cursor-pointer">Conditions of Use</span>{" "}
-                        and{" "}
-                        <span className="text-blue-600 hover:underline cursor-pointer">Privacy Notice</span>.
-                    </p>
-
-                    {/* Need help */}
-                    <p className="text-blue-600 text-sm cursor-pointer hover:underline">Need help?</p>
-                </div>
-
-                {/* New account */}
-                <div className="mt-6 w-80">
-                    <div className="flex items-center">
-                        <div className="flex-grow h-px bg-gray-300"></div>
-                        <span className="px-2 text-xs text-gray-500">New to Amazon?</span>
-                        <div className="flex-grow h-px bg-gray-300"></div>
+                    {/* Logo */}
+                    <div className="mt-10">
+                        <img
+                            className="h-12"
+                            src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg"
+                            alt="Amazon Logo"
+                        />
                     </div>
-                    <button className="w-full mt-4 bg-gray-200 hover:bg-gray-300 text-black py-2 rounded-sm border border-gray-400">
-                        Create your Amazon account
-                    </button>
+
+                    <div className='text-red-600' >{apiError}</div>
+
+
+                    {/* Register Card */}
+                    <div className="bg-white w-96 p-6 rounded-lg border border-gray-300 mt-6 shadow-sm">
+                        <h1 className="text-2xl font-semibold mb-4">Sign in</h1>
+
+                        <form onSubmit={formik.handleSubmit}>
+                            {/* Email */}
+                            <label htmlFor='email' className="block text-sm font-medium mb-1 text-black">Email</label>
+                            <input
+                                id='email'
+                                value={formik.values.email}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                type="email"
+                                name="email"
+                                placeholder="you@example.com"
+                                className="text-black w-full p-2 border border-gray-400 rounded-md mb-4 focus:ring-1 focus:ring-yellow-500 focus:border-yellow-500 outline-none"
+                            />
+                            {formik.touched.email && formik.errors.email ? (
+                                <div className='text-red-600' >{formik.errors.email}</div>
+                            ) : null}
+
+                            {/* Password */}
+                            <label htmlFor='password' className="block text-sm font-medium mb-1 text-black">Password</label>
+                            <input
+                                id='password'
+                                value={formik.values.password}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                name='password'
+                                type="password"
+                                placeholder="At least 6 characters"
+                                className="text-black w-full p-2 border border-gray-400 rounded-md mb-1 focus:ring-1 focus:ring-yellow-500 focus:border-yellow-500 outline-none"
+                            />
+                            {/* <p className="text-xs text-gray-600 mb-4">
+                                Passwords must be at least 6 characters.
+                            </p> */}
+                            {formik.touched.password && formik.errors.password ? (
+                                <div className='text-red-600'>{formik.errors.password}</div>
+                            ) : null}
+
+
+                            {/* Create Button */}
+                            {isLoading ? <button
+                                type="button"
+                                disabled
+                                className="w-full bg-yellow-400 text-black font-medium py-2 rounded-md">
+
+                                loading
+                            </button> : <button
+                                type="submit"
+                                className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-medium py-2 rounded-md">
+                                Continue
+                            </button>}
+                        </form>
+                        {/* Legal text */}
+                        <p className="text-xs mb-4  text-black">
+                            By continuing, you agree to Amazon's{" "}
+                            <span className="text-blue-600 hover:underline cursor-pointer">Conditions of Use</span>{" "}
+                            and{" "}
+                            <span className="text-blue-600 hover:underline cursor-pointer">Privacy Notice</span>.
+                        </p>
+
+                        {/* Need help */}
+                        <p className="text-blue-600 text-sm cursor-pointer hover:underline">Need help?</p>
+                    </div>
+
+                    {/* New account */}
+                    <div className="mt-6 w-80">
+                        <div className="flex items-center">
+                            <div className="flex-grow h-px bg-gray-300"></div>
+                            <span className="px-2 text-xs text-gray-500">New to Amazon?</span>
+                            <div className="flex-grow h-px bg-gray-300"></div>
+                        </div>
+                        <button className="w-full mt-4 bg-gray-200 hover:bg-gray-300 text-black py-2 rounded-sm border border-gray-400">
+                            Create your Amazon account
+                        </button>
+                    </div>
                 </div>
             </div>
         </>

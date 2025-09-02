@@ -12,7 +12,7 @@ function App() {
         <Header />
         <main className="flex-grow">
           <Routes>
-            <Route path="/" element={<SignUp />} />
+            <Route path="/SignUp" element={<SignUp />} />
             <Route path="/logIn" element={<LogIn />} />
           </Routes>
         </main>
