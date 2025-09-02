@@ -46,24 +46,22 @@ export default function SignUp() {
 
 
 
-    return (
-        <>
-            <div>
-                <div className="flex flex-col items-center min-h-screen bg-gray-100">
-                    {/* Logo */}
-                    <div className="mt-10">
-                        <img
-                            className="h-12"
-                            src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg"
-                            alt="Amazon Logo"
-                        />
-                    </div>
+  return (
+    <>
+      <div>
+        <div className="flex flex-col items-center min-h-screen bg-gray-100">
+          {/* Logo */}
+          <div className="mt-10">
+            <img
+              className="h-12"
+              src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg"
+              alt="Amazon Logo"
+            />
+          </div>
 
-                    {/* Register Card */}
-                    <div className="bg-white w-96 p-6 rounded-lg border border-gray-300 mt-6 shadow-sm">
-                        <h1 className="text-2xl font-semibold mb-4">Create account</h1>
-
-
+          {/* Register Card */}
+          <div className="bg-white w-96 p-6 rounded-lg border border-gray-300 mt-6 shadow-sm">
+            <h1 className="text-2xl font-semibold mb-4">Create account</h1>
 
                         <form onSubmit={formik.handleSubmit}>
                             {/* Email */}
@@ -102,37 +100,38 @@ export default function SignUp() {
                             ) : null}
 
 
-                            {/* Create Button */}
-                            <button type='submit' className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-medium py-2 rounded-md">
-                                Create your Amazon account
-                            </button>
-                        </form>
+              {/* Create Button */}
+              <button
+                type="submit"
+                className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-medium py-2 rounded-md"
+              >
+                Create your Amazon account
+              </button>
+            </form>
 
+            {/* Legal text */}
+            <p className="mt-4 text-xs text-gray-600">
+              By creating an account, you agree to Amazon's{" "}
+              <a href="#" className="text-blue-600 hover:underline">
+                Conditions of Use
+              </a>{" "}
+              and{" "}
+              <a href="#" className="text-blue-600 hover:underline">
+                Privacy Notice
+              </a>
+              .
+            </p>
 
-
-                        {/* Legal text */}
-                        <p className="mt-4 text-xs text-gray-600">
-                            By creating an account, you agree to Amazon's{" "}
-                            <a href="#" className="text-blue-600 hover:underline">
-                                Conditions of Use
-                            </a>{" "}
-                            and{" "}
-                            <a href="#" className="text-blue-600 hover:underline">
-                                Privacy Notice
-                            </a>
-                            .
-                        </p>
-
-                        {/* Sign in link */}
-                        <div className="mt-6 text-sm text-black">
-                            Already have an account?{" "}
-                            <a href="/login" className="text-blue-600 hover:underline ">
-                                Sign in
-                            </a>
-                        </div>
-                    </div>
-                </div>
+            {/* Sign in link */}
+            <div className="mt-6 text-sm text-black">
+              Already have an account?{" "}
+              <a href="/login" className="text-blue-600 hover:underline ">
+                Sign in
+              </a>
             </div>
-        </>
-    )
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
