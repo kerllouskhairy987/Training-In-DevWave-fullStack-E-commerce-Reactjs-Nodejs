@@ -8,13 +8,11 @@ import Button from '@mui/material/Button';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardActions from '@mui/material/CardActions';
 import { Star } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function MultiActionAreaCard({ product }) {
 
-  //  const imageUrl = product.images && product.images.length > 0 
-  //                   ? product.images[0] 
-  //                   : 'https://via.placeholder.com/300x200?text=No+Image';
-  //                   console.log(imageUrl)
+  
                 
 
 const formattedDate = product.deliveryDate
@@ -26,59 +24,7 @@ const formattedDate = product.deliveryDate
   : "N/A";
 
   return (
-//     <Card sx={{ maxWidth: 290 }}>
-//       <CardActionArea>
-//     <CardMedia
-//   component="img"
-//   image={product.images[0]}
-//   alt={product.name}
-//   loading='lazy'
-//   sx={{
-//     height: 200,        // fixed height for all images
-//     objectFit: "cover", // ensures aspect ratio is kept
-//   }}
-// />
 
-//         <CardContent>
-//           <Typography gutterBottom variant="h6" component="div">
-//             {product.name.slice(0, 25) + (product.name?.length > 25 ? "..." : "")}
-//           </Typography>
-
-//           <div className="flex items-center mb-1">
-//             {[...Array(5)].map((_, i) => (
-//               <Star
-//                 key={i}
-//                 size={20}
-//                 className={i < product.stars ? "fill-yellow-500 text-yellow-500" : "text-gray-300"}
-//               />
-//             ))}
-//           </div>
-
-//           <Typography variant="body2" sx={{ color: 'text.secondary', marginBottom: 2 }}>{product.salerate}
-//             + bought in past month
-//           </Typography>
-//           <Typography variant="body2" sx={{ fontSize: 25, fontWeight: 'semi-bold' }}>{product.price}
-//             <Typography variant="span" sx={{ color: 'text.secondary', fontSize: 14, fontWeight: 'normal' }}> {product.discount} % off</Typography>
-
-//           </Typography>
-//           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-//             Save extra with No Cost EMI
-//           </Typography>
-
-//           <Typography variant="body2" >
-//             FREE delivery by <Typography variant="span" sx={{
-//               fontWeight: 'semi-bold'
-//             }
-//             }>{formattedDate}</Typography>
-//           </Typography>
-//         </CardContent>
-//       </CardActionArea>
-//       <CardActions>
-//         <Button size="small" sx={{ backgroundColor: '#FFCC00', color: 'black' ,padding: '8px 16px',borderRadius: '20px',mb:2 }} >
-//           Add to Cart
-//         </Button>
-//       </CardActions>
-//     </Card>
 
 
 <Card 
@@ -90,6 +36,7 @@ const formattedDate = product.deliveryDate
     justifyContent: "space-between" // spread content evenly
   }}
 >
+  <Link to={`/products/${product?._id}`}>
   <CardActionArea sx={{ flexGrow: 1 }}>
     <CardMedia
       component="img"
@@ -157,6 +104,7 @@ const formattedDate = product.deliveryDate
       Add to Cart
     </Button>
   </CardActions>
+  </Link>
 </Card>
 
   );

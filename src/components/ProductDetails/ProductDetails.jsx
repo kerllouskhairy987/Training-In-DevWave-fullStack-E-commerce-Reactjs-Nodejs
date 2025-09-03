@@ -7,30 +7,55 @@ import { Star,Locate } from 'lucide-react'
 import MultipleSelect from '../ui/SelectionButton'
 import RatingBreakdown from '../ui/RatingProgress'
 import ReviewCard from '../ui/ReviewCard'
+import { getSingleProduct } from '../../Api\'s/products'
+import { useQuery } from '@tanstack/react-query'
+import { useParams } from 'react-router-dom'
 export default function ProductDetails() {
+
+let { id } = useParams()
+    const {
+    data: singleProduct,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["singleProduct"],
+    queryFn: () => getSingleProduct(id),
+    staleTime: 1000 * 60 * 5, // cache for 5 min
+    cacheTime: 1000 * 60 * 10,
+  });
+const ourProduct = singleProduct?.product
+console.log(ourProduct)
+const formattedDate = ourProduct.deliveryDate
+  ? new Date(ourProduct.deliveryDate).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    })
+  : "N/A";
   return (
     <div>
    <div className="flex flex-col md:flex-row gap-6 p-6">
       
       {/* Left Image Section */}
       <div className="flex-1 flex justify-center items-center">
-        <img src={photo1} alt="Product" className="w-full max-w-md object-contain rounded-lg " />
+        <img src={ourProduct?.images[0]} alt="Product" className="w-full max-w-md object-contain rounded-lg " />
       </div>
 
       {/* Middle Product Info */}
       <div className="flex-1 max-w-xl space-y-4">
-        <p className="text-[#1F8394] text-sm">Brand: WDIRARA</p>
+        <p className="text-[#1F8394] text-sm">Brand: {ourProduct?.brand}</p>
         
         <h2 className="text-lg font-semibold leading-snug text-gray-500">
-          LG 7 Kg, 5 Star, Direct Drive Technology, Steam Wash,
-          6 Motion DD, Smart Diagnosis, Fully-Automatic Front Load
+          {ourProduct?.name}
+          <br />
+          {ourProduct?.description}
         </h2>
 
         {/* Rating */}
         <div className="flex items-center gap-1 text-sm">
           <span className="">4.1</span>
           {[...Array(4)].map((_, i) => (
-            <Star key={i} className="w-4 h-4 fill-yellow-500 text-yellow-500" />
+            <Star key={i}   className={i < ourProduct.stars ? "fill-yellow-500 text-yellow-500" : "text-gray-300"} />
           ))}
           <Star className="w-4 h-4 text-gray-300" />
           <span className="ml-2 text-[#1F8394]">76 ratings</span>
@@ -42,13 +67,13 @@ export default function ProductDetails() {
 
         {/* Price Section */}
         <div className="text-2xl  ">
-          <sup className="text-sm align-top">SAR</sup> 203<sup className="text-sm align-top">14</sup>
+          <sup className="text-sm align-top">SAR</sup> {ourProduct?.price}<sup className="text-sm align-top">14</sup>
         </div>
         <p className="text-sm text-gray-500">All prices include VAT.</p>
 
         <p className=" font-medium">
           <span className='text-gray-500'>Sign in to redeem.</span>
-          <span className='bg-[#71ED58]'>Extra 20%</span>
+          <span className='bg-[#71ED58]'>Extra {ourProduct?.discount}%</span>
           
            <span className=" font-normal">off with meem credit cards.</span>
         </p>
@@ -85,10 +110,10 @@ export default function ProductDetails() {
       {/* Right Cart Section */}
       <div className="w-full md:w-64 border rounded-lg shadow-md p-4 space-y-3">
         <h3 className="text-2xl ">
-          <sup className="text-sm">SAR</sup> 203<sup className="text-sm">14</sup>
+          <sup className="text-sm">SAR</sup> {ourProduct?.price}<sup className="text-sm">14</sup>
         </h3>
         <p className="text-sm ">
-          SAR96 delivery <span className="font-medium">6–9 October</span>
+          SAR96 delivery <span className="font-medium">{formattedDate}</span>
         </p>
         <p className="text-sm text-[#1F8394] cursor-pointer">Details</p>
         

@@ -200,7 +200,10 @@ const Header: React.FC = () => {
             <Menu className="w-5 h-5 mr-2" />
             All
           </button>
-
+<Link to="/products" className="flex items-center shrink-0">
+            
+            <span className="ml-1 font-bold">products</span>
+          </Link>
           {categories.map((cat) => (
             <Link
               key={cat}

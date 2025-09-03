@@ -16,6 +16,21 @@ export async function getProducts()
           return error?.message
     }
 }
+export async function getSingleProduct(id)
+{
+    try {
+      
+        let {data} = await axios.get(`https://training-in-dev-wave-full-stack-e-c.vercel.app/api/products/${id}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            } )
+        return data
+        
+    } catch (error) {
+          return error?.message
+    }
+}
 
 export async function getFilterdProducts(filterObj)
 {
