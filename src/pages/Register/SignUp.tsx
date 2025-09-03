@@ -1,4 +1,4 @@
-// import React from 'react'
+import React from 'react'
 import { useFormik } from 'formik'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -18,7 +18,7 @@ export default function SignUp() {
     let navigate = useNavigate()
 
 
-    let validate = yup.object().shape({
+    const validate = yup.object().shape({
         email: yup.string().email('email is invalid').required('please enter your email address'),
         password: yup.string().matches(/^[A-Z][a-z0-9]{5,10}$/, 'Password must start with a capital letter and be 6-11 letters long').required('password is required')
     })

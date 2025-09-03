@@ -1,9 +1,11 @@
 import React from 'react'
+// import  { useContext } from 'react'
 import { useFormik } from 'formik'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup'
 import { useState } from 'react';
+// import { userContext } from '../../components/Context/userContext';
 
 
 interface registerValues {
@@ -13,13 +15,15 @@ interface registerValues {
 
 export default function Login() {
 
+    // const { setUserLogIn } = useContext(userContext);
+
     const [apiError, setApiError] = useState('')
     const [isLoading, setIsLoading] = useState(false)
 
     let navigate = useNavigate()
 
 
-    let validate = yup.object().shape({
+    const validate = yup.object().shape({
         email: yup.string().email('email is invalid').required('please enter your email address'),
         password: yup.string().matches(/^[A-Z][a-z0-9]{5,10}$/, 'Password must start with a capital letter and be 6-11 letters long').required('password is required')
     })
@@ -31,9 +35,14 @@ export default function Login() {
         console.log(formValues)
         axios.post(`https://training-in-dev-wave-full-stack-e-c.vercel.app/api/auth/login`, formValues)
             .then((apiResponse) => {
-                // setApiError(apiResponse?.response?.data?.message);
+                setApiError(apiResponse?.data?.message);
+                console.log(apiResponse?.data?.token);
+                // console.log(apiResponse?.data?.message);
+                if (apiResponse?.data?.message === 'Login successful') {
+                    localStorage.setItem('userToken', apiResponse?.data?.token)
+                }
                 setIsLoading(false);
-                // navigate('/')
+                navigate('/')
             })
             .catch((apiResponse) => {
                 setApiError(apiResponse?.response?.data?.message);
@@ -54,57 +63,6 @@ export default function Login() {
 
     })
     return (
-        // <>
-        //     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
-        //         {/* Logo */}
-        //         <div className="mb-6">
-        //             <img
-        //                 src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg"
-        //                 alt="Amazon"
-        //                 className="h-10"
-        //             />
-        //         </div>
-
-        //         {/* Card */}
-        //         <div className="bg-white w-80 p-6 border border-gray-300 rounded-md shadow-sm">
-        //             <h1 className="text-2xl font-semibold mb-4">Sign in</h1>
-
-        //             {/* Email input */}
-        //             <label className="block mb-2 text-sm font-medium text-black">Email or mobile phone number</label>
-        //             <input
-        //                 type="text"
-        //                 className=" text-black w-full p-2 mb-4 border border-gray-400 rounded-sm focus:outline-none focus:ring-2 focus:ring-yellow-500"
-        //             />
-
-        //             {/* Continue button */}
-        //             <button className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-medium py-2 rounded-sm mb-4">
-        //                 Continue
-        //             </button>
-
-        //             <p className="text-xs mb-4  text-black">
-        //                 By continuing, you agree to Amazon's{" "}
-        //                 <span className="text-blue-600 hover:underline cursor-pointer">Conditions of Use</span>{" "}
-        //                 and{" "}
-        //                 <span className="text-blue-600 hover:underline cursor-pointer">Privacy Notice</span>.
-        //             </p>
-
-        //             {/* Need help */}
-        //             <p className="text-blue-600 text-sm cursor-pointer hover:underline">Need help?</p>
-        //         </div>
-
-        //         {/* New account */}
-        //         <div className="mt-6 w-80">
-        //             <div className="flex items-center">
-        //                 <div className="flex-grow h-px bg-gray-300"></div>
-        //                 <span className="px-2 text-xs text-gray-500">New to Amazon?</span>
-        //                 <div className="flex-grow h-px bg-gray-300"></div>
-        //             </div>
-        //             <button className="w-full mt-4 bg-gray-200 hover:bg-gray-300 text-black py-2 rounded-sm border border-gray-400">
-        //                 Create your Amazon account
-        //             </button>
-        //         </div>
-        //     </div>
-        // </>
         <>
             <div>
 
