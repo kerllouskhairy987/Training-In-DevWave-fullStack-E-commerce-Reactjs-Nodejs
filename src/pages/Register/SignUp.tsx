@@ -1,7 +1,7 @@
 // import React from 'react'
 import { useFormik } from 'formik'
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import * as yup from 'yup'
 import { useState } from 'react';
 
@@ -52,7 +52,9 @@ export default function SignUp() {
 
     })
 
-
+    if (localStorage.getItem("userToken")) {
+        return <Navigate to="/" />
+    }
 
 
     return (

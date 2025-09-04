@@ -1,5 +1,5 @@
 
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { useFormik } from 'formik'
 import axios from 'axios';
 import * as yup from 'yup'
@@ -13,7 +13,6 @@ import { ErrorToast, successToast } from '@/notification';
 
 interface registerValues {
     email: string;
-    // password: string;
 }
 
 export default function Login() {
@@ -24,10 +23,8 @@ export default function Login() {
 
     const navigate = useNavigate()
 
-
     const validate = yup.object().shape({
         email: yup.string().email('email is invalid').required('please enter your email address'),
-        // password: yup.string().matches(/^[A-Z][a-z0-9]{5,10}$/, 'Password must start with a capital letter and be 6-11 letters long').required('password is required')
     })
 
 
@@ -48,7 +45,6 @@ export default function Login() {
             })
             .catch((apiResponse) => {
                 ErrorToast({ message: apiResponse?.response?.data?.message })
-                // setApiFulfilled("")
                 console.log(apiResponse?.response?.data?.message);
                 setIsLoading(false)
             })
@@ -58,12 +54,15 @@ export default function Login() {
     const formik = useFormik({
         initialValues: {
             email: "",
-            // password: ""
         },
         validationSchema: validate,
         onSubmit: handleRegister
 
     })
+
+    if (localStorage.getItem("userToken")) {
+        return <Navigate to="/" />
+    }
 
     return (
         <>
@@ -146,23 +145,3 @@ export default function Login() {
         </>
     )
 }
-
-
-{/* Password */ }
-// <label htmlFor='password' className="block text-sm font-medium mb-1 text-black">Password</label>
-// <input
-//     id='password'
-//     value={formik.values.password}
-//     onChange={formik.handleChange}
-//     onBlur={formik.handleBlur}
-//     name='password'
-//     type="password"
-//     placeholder="At least 6 characters"
-//     className="text-black w-full p-2 border border-gray-400 rounded-md mb-1 focus:ring-1 focus:ring-yellow-500 focus:border-yellow-500 outline-none"
-// />
-{/* <p className="text-xs text-gray-600 mb-4">
-                                Passwords must be at least 6 characters.
-                            </p> */}
-// {formik.touched.password && formik.errors.password ? (
-//     <div className='text-red-600'>{formik.errors.password}</div>
-// ) : null}

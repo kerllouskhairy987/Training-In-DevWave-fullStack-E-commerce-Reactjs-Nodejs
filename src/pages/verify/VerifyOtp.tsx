@@ -57,8 +57,13 @@ const VerifyOTP: React.FC = () => {
             console.log("from function", data)
             localStorage.setItem('userToken', data.token)
             successToast({ message: `${data.message}, You will be redirected to home page` });
+
             setTimeout(() => {
-                navigate("/")
+                if (data.user.role === 'admin') {
+                    navigate("/dashboard")
+                } else {
+                    navigate("/profile")
+                }
             }, 2000)
         } catch (error) {
             const err = error as { response: { data: { message: string } } }
