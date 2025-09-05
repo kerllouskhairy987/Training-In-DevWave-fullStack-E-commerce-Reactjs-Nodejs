@@ -1,6 +1,7 @@
 import React from "react";
 import Avatar from '@mui/material/Avatar';
-const ReviewCard = () => {
+import { Star } from "lucide-react";
+const ReviewCard = ({feedback}) => {
   return (
     <div className="max-w-2xl p-4  rounded-lg  bg-white">
       {/* User Info */}
@@ -11,9 +12,9 @@ const ReviewCard = () => {
 
       {/* Stars + Title */}
       <div className="mt-2 flex items-center gap-2">
-        <div className="flex text-yellow-500">
-          ★★★★☆
-        </div>
+        {[...Array(5)].map((_, i) => (
+            <Star key={i}   className={i < feedback?.rating ? "fill-yellow-500 text-yellow-500" : "text-gray-300"} />
+          ))}
         <h3 className="font-bold text-gray-800">Favorite dress</h3>
       </div>
 
@@ -31,10 +32,7 @@ const ReviewCard = () => {
 
       {/* Review Content */}
       <p className="mt-3 text-gray-700 text-sm leading-relaxed">
-        I initially purchased this dress on sale. It turned out to be my favorite dress of this summer.
-        It is extremely versatile and unexpectedly flattering. When I accidentally tore it, I was really upset.
-        My husband told me to buy it again, which I typically wouldn't do. It wasn't on sale and I am so frugal.
-        The dress washes very well and I always get compliments when I wear it.
+        {feedback?.comment}
       </p>
 
       {/* Report link */}

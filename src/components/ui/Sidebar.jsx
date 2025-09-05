@@ -90,7 +90,7 @@ console.log(selectedFilters)
     <>
       {/* Toggle Icon (mobile only) */}
       <button
-        className="md:hidden fixed top-4 left-4 z-50 p-2  text-gray-600 rounded-lg"
+        className="md:hidden absolute top-36 left-4 z-50 p-2  text-gray-600 rounded-lg"
         onClick={() => setIsOpen(!isOpen)}
       >
         {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -98,7 +98,7 @@ console.log(selectedFilters)
 
       {/* Sidebar */}
       <aside
-  className={`fixed md:static top-0 left-0 h-full w-64 p-4 bg-white shadow-lg rounded-r-2xl transform transition-transform duration-300 z-40
+  className={`fixed md:static  top-0 left-0 h-full w-64 p-4 bg-white shadow-lg rounded-r-2xl transform transition-transform duration-300 z-40
   ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
 >
         {filters.map((filter) => (

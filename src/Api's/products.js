@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YjdmYjdkNTBmNjM5ODY5ZDE4OTU4NiIsImVtYWlsIjoiYmFzbWFAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NTY5MTIwOTAsImV4cCI6MTc1Njk5ODQ5MH0.mNDPR6NOr1M1b-M_aN2dRV1TYGW2jU2k5z2utGIx7uU"
+const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YjU4ZTMwMGIyOGQ5OTI3YWY2NzNmMSIsImVtYWlsIjoibW02MzMxMzI5QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NzA2MTMwMCwiZXhwIjoxNzU3MTQ3NzAwfQ.ei6-w_xZvkfs1QaLWCojhESG_nRM2xfS13aC8q7NGew"
 export async function getProducts()
 {
     try {
@@ -41,6 +41,35 @@ export async function getFilterdProducts(filterObj)
                     'Authorization': `Bearer ${token}`
                 },
                 params: filterObj
+            } )
+        return data
+        
+    } catch (error) {
+          return error?.message
+    }
+}
+export async function getProductFeedback(productId) {
+    try {
+      
+        let {data} = await axios.get(`https://training-in-dev-wave-full-stack-e-c.vercel.app/api/feedback/product-feedback/${productId}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            } )
+        return data
+        
+    } catch (error) {
+          return error?.message
+    }
+}
+
+export async function getProductStats(productId) {
+    try {
+      
+        let {data} = await axios.get(`https://training-in-dev-wave-full-stack-e-c.vercel.app/api/feedback/product-feedback-stats/${productId}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
             } )
         return data
         

@@ -496,7 +496,7 @@ const MultiActionAreaCard = React.lazy(() => import("../ui/Card"));
 import { getProducts, getFilterdProducts } from "../../Api's/products";
 
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YjdmYjdkNTBmNjM5ODY5ZDE4OTU4NiIsImVtYWlsIjoiYmFzbWFAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NTY5MTIwOTAsImV4cCI6MTc1Njk5ODQ5MH0.mNDPR6NOr1M1b-M_aN2dRV1TYGW2jU2k5z2utGIx7uU";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YjU4ZTMwMGIyOGQ5OTI3YWY2NzNmMSIsImVtYWlsIjoibW02MzMxMzI5QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NzA2MTMwMCwiZXhwIjoxNzU3MTQ3NzAwfQ.ei6-w_xZvkfs1QaLWCojhESG_nRM2xfS13aC8q7NGew";
 
 export default function Products() {
   const [filterConfig, setFilterConfig] = useState([]);
@@ -550,7 +550,7 @@ export default function Products() {
           },
           {
             title: "Customer Reviews",
-            name: "reviews",
+            name: "stars",
             options: [{ label: "4 Stars & Up", value: 4 }],
           },
           {
@@ -563,10 +563,10 @@ export default function Products() {
             name: "price",
             options: [
               { label: "All", value: "all" },
-              { label: "₹5,000 to ₹10,000", value: "5000-10000" },
-              { label: "₹10,000 to ₹20,000", value: "10000-20000" },
-              { label: "₹20,000 to ₹30,000", value: "20000-30000" },
-              { label: "₹30,000 to ₹45,000", value: "30000-45000" },
+              { label: "₹100 to ₹200", value: "100-200" },
+              { label: "₹200 to ₹400", value: "200-400" },
+              { label: "₹400 to ₹600", value: "400-600" },
+              { label: "₹600 to ₹1000", value: "600-1000" },
             ],
           },
         ]);
@@ -600,7 +600,7 @@ export default function Products() {
       {/* Sidebar with memoized filters */}
       <Sidebar filters={filterConfig} onFilterChange={handleFilters} />
 
-      <section className="flex-1 p-4">
+      <section className="flex-1 p-4 mt-12 md:mt-0">
         <h1 className="text-2xl font-bold mb-4">Our Products</h1>
 
         {isFiltering && <p>Loading filtered products...</p>}

@@ -7,12 +7,13 @@ import { Star,Locate } from 'lucide-react'
 import MultipleSelect from '../ui/SelectionButton'
 import RatingBreakdown from '../ui/RatingProgress'
 import ReviewCard from '../ui/ReviewCard'
-import { getSingleProduct } from '../../Api\'s/products'
+import { getProductFeedback, getProductStats, getSingleProduct } from '../../Api\'s/products'
 import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'react-router-dom'
 export default function ProductDetails() {
 
 let { id } = useParams()
+console.log(id)
     const {
     data: singleProduct,
     isLoading,
@@ -23,15 +24,66 @@ let { id } = useParams()
     staleTime: 1000 * 60 * 5, // cache for 5 min
     cacheTime: 1000 * 60 * 10,
   });
+
+
+      const {
+    data: productStats,
+    isLoading: isLoadingStats,
+    error: errorStats,
+  } = useQuery({
+    queryKey: ["productStats"],
+    queryFn: () => getProductStats(id),
+    staleTime: 1000 * 60 * 5, // cache for 5 min
+    cacheTime: 1000 * 60 * 10,
+  });
+  //     const {
+  //   data: getfeedaback,
+  //   isLoading: isLoadingFeedback,
+  //   error: errorFeedback,
+  // } = useQuery({
+  //   queryKey: ["productFeedback"],
+  //   queryFn: () => getProductFeedback(id),
+  //   staleTime: 1000 * 60 * 5, // cache for 5 min
+  //   cacheTime: 1000 * 60 * 10,
+  // });
+console.log(productStats)
+  const {
+  data: productfeedback,
+  isLoading: isLoadingFeedback,
+  error: errorFeedback,
+} = useQuery({
+  queryKey: ["productFeedback", id], // include id in the key
+  queryFn: () => getProductFeedback(id),
+  enabled: !!id, // only run if id exists
+  staleTime: 1000 * 60 * 5, // cache for 5 min
+  cacheTime: 1000 * 60 * 10,
+});
+
+
+const feedbackList = productfeedback?.feedbacks ?? [];
+// if (isLoadingFeedback) {
+//   return <p>Loading feedback...</p>;
+// }
+
+// if (errorFeedback) {
+//   return <p>Error loading feedback: {errorFeedback.message}</p>;
+// }
+
+  console.log(productfeedback)
+  console.log(feedbackList)
+  console.log(singleProduct)
+
+
 const ourProduct = singleProduct?.product
-console.log(ourProduct)
-const formattedDate = ourProduct.deliveryDate
+
+const formattedDate = ourProduct?.deliveryDate
   ? new Date(ourProduct.deliveryDate).toLocaleDateString("en-US", {
       year: "numeric",
       month: "short",
       day: "numeric",
     })
   : "N/A";
+
   return (
     <div>
    <div className="flex flex-col md:flex-row gap-6 p-6">
@@ -54,10 +106,10 @@ const formattedDate = ourProduct.deliveryDate
         {/* Rating */}
         <div className="flex items-center gap-1 text-sm">
           <span className="">4.1</span>
-          {[...Array(4)].map((_, i) => (
-            <Star key={i}   className={i < ourProduct.stars ? "fill-yellow-500 text-yellow-500" : "text-gray-300"} />
+          {[...Array(5)].map((_, i) => (
+            <Star key={i}   className={i < ourProduct?.stars ? "fill-yellow-500 text-yellow-500" : "text-gray-300"} />
           ))}
-          <Star className="w-4 h-4 text-gray-300" />
+          {/* <Star className="w-4 h-4 text-gray-300" /> */}
           <span className="ml-2 text-[#1F8394]">76 ratings</span>
           <span className="mx-2">|</span>
           <span className="text-[#1F8394] cursor-pointer">Search this page</span>
@@ -100,10 +152,13 @@ const formattedDate = ourProduct.deliveryDate
         {/* About this item */}
         <h3 className="text-lg font-bold mt-4">About this item</h3>
         <ul className="list-disc pl-6 space-y-1 text-sm ">
-          <li>Feature: square neck, cutout, puff sleeve, ruffle hem, tie back aline dress</li>
+          {/* <li>Feature: square neck, cutout, puff sleeve, ruffle hem, tie back aline dress</li>
           <li>Fabric has some stretch, and it's soft and comfortable</li>
           <li>Suitable for daily wear, holidays, dating, vacation, weekend casual</li>
-          <li>Care Instructions: Machine wash or professional dry clean</li>
+          <li>Care Instructions: Machine wash or professional dry clean</li> */}
+          {ourProduct?.aboutItem.map((item, index) => (
+            <li key={index}>{item}</li>
+          ))}
         </ul>
       </div>
 
@@ -150,29 +205,52 @@ const formattedDate = ourProduct.deliveryDate
       </div> 
     </div>
     <hr />
-<div className='flex justify-center items-center flex-col md:flex-row gap-16 p-6'>
+
+
+
+
+
+
+{feedbackList.length > 0 ? (
+
+<div className='flex   flex-col md:flex-row gap-16 p-6'>
 <div className='progress-reviews'>
 <h3 className='text-lg font-bold mb-3'>Customer Reviews</h3>
-<div className="flex items-center mb-3">
-    {[...Array(5)].map((_, i) => (
-      <Star
-        key={i}
-        size={20}
-        className={i < 4 ? "fill-yellow-500 text-yellow-500" : "text-gray-300"}
-      />
-    ))} <span className='font-semibold mx-2'>4.1 out of 5</span>
-  </div>
-  <p className='mb-2 text-gray-600'>1 global rating</p>
-  <RatingBreakdown/>
-</div>
-<div className='card-review flex-1' >
-<ReviewCard/>
-</div>
-</div>
-
-
-
+    <div className="flex items-center mb-3">
+      {[...Array(5)].map((_, i) => (
+        <Star
+          key={i}
+          size={20}
+          className={i < 4 ? "fill-yellow-500 text-yellow-500" : "text-gray-300"}
+        />
+      ))}
+      <span className="font-semibold mx-2">4.1 out of 5</span>
     </div>
+    <p className="mb-2 text-gray-600">1 global rating</p>
+    <RatingBreakdown stats={productStats.stats[0]} />
+</div>
+
+    <div className="card-review flex-1 flex flex-col gap-6 " >
+  {feedbackList.map((feedback) => (
+  
+      <ReviewCard feedback={feedback} key={feedback.id} />
+  
+  ))}
+    </div>
+    
+
+  </div>
+) : (
+  <div>
+    <h3 className="text-lg font-bold">No Reviews</h3>
+    <p className="text-gray-600">Be the first to review this item</p>
+  </div>
+)}
+
+
+
+</div>
+
   )
 }
 

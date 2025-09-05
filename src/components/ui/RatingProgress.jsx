@@ -1,6 +1,6 @@
 import React from "react";
 
-const RatingBreakdown = () => {
+const RatingBreakdown = ({stats}) => {
   const ratings = [
     { star: 5, percent: 0 },
     { star: 4, percent: 71 },
