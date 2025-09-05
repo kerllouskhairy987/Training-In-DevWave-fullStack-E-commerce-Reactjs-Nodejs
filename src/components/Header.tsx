@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Search,
@@ -26,6 +26,7 @@ const Header: React.FC = () => {
   // country dropdown
   const [countryOpen, setCountryOpen] = useState<boolean>(false);
   const [country, setCountry] = useState<string>("IN");
+  const [token, setToken] = useState<string | null>(null);
 
   const catOptions: string[] = ["All", "Electronics", "Clothing", "Books", "Home"];
   const countryOptions: CountryOption[] = [
@@ -50,8 +51,17 @@ const Header: React.FC = () => {
     "Home & Kitchen",
     "Amazon Pay",
   ];
-  const token = localStorage.getItem('userToken')
-  // console.log(token)
+
+  useEffect(() => {
+    setToken(localStorage.getItem('userToken'))
+  }, [token])
+
+  const logoutHandler = () => {
+    localStorage.removeItem("userToken")
+    successToast({ message: "You have logged out successfully" })
+    setToken(null)
+  }
+
   return (
     <>
 
@@ -81,7 +91,6 @@ const Header: React.FC = () => {
               </div>
             </div>
 
-            {/* Search (ياخد المساحة كلها في النص) */}
             <form
               className="flex-1"
               onSubmit={(e) => {
@@ -183,10 +192,7 @@ const Header: React.FC = () => {
                 <Button variant={"outline"}>
                   <Link to={"/profile"} className="text-md font-bold text-gray-200 ">Profile</Link>
                 </Button>
-                <Button variant={"destructive"} onClick={() => {
-                  localStorage.removeItem("userToken")
-                  successToast({ message: "You have logged out successfully" })
-                }}>
+                <Button variant={"destructive"} onClick={logoutHandler}>
                   <Link to={"/login"} className="text-md font-bold text-gray-200 ">Logout</Link>
                 </Button>
 

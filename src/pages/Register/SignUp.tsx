@@ -4,6 +4,8 @@ import axios from 'axios';
 import { Navigate, useNavigate } from 'react-router-dom';
 import * as yup from 'yup'
 import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import SpinnerComponent from '@/components/ui/Spinner';
 
 
 interface registerValues {
@@ -20,7 +22,7 @@ export default function SignUp() {
 
     const validate = yup.object().shape({
         email: yup.string().email('email is invalid').required('please enter your email address'),
-        password: yup.string().matches(/^[A-Z][a-z0-9]{5,10}$/, 'Password must start with a capital letter and be 6-11 letters long').required('password is required')
+        password: yup.string().matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, 'Password must start with a capital letter and be 6-11 letters long').required('password is required')
     })
 
 
@@ -117,18 +119,14 @@ export default function SignUp() {
 
 
                             {/* Create Button */}
-                            {isLoading ? <button
-                                type="button"
-                                disabled
-                                className="w-full bg-yellow-400 text-black font-medium py-2 rounded-md">
-
-                                loading
-                            </button> : <button
-                                type="submit"
-                                className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-medium py-2 rounded-md">
-
-                                Create your Amazon account
-                            </button>}
+                            <Button
+                                type={isLoading ? "button" : "submit"}
+                                className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-medium py-2 rounded-md"
+                            >
+                                {
+                                    isLoading ? <SpinnerComponent /> : "Continue"
+                                }
+                            </Button>
                         </form>
                         {/* Legal text */}
                         <p className="mt-4 text-xs text-gray-600">

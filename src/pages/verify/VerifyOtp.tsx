@@ -56,7 +56,8 @@ const VerifyOTP: React.FC = () => {
             })
             console.log("from function", data)
             localStorage.setItem('userToken', data.token)
-            successToast({ message: `${data.message}, You will be redirected to home page` });
+            localStorage.setItem("userRole", data.user.role)
+            successToast({ message: `${data.message}, You will be redirected to ${data.user.role === 'admin' ? 'Dashboard' : 'Profile'} page` });
 
             setTimeout(() => {
                 if (data.user.role === 'admin') {
@@ -65,6 +66,7 @@ const VerifyOTP: React.FC = () => {
                     navigate("/profile")
                 }
             }, 2000)
+
         } catch (error) {
             const err = error as { response: { data: { message: string } } }
             ErrorToast({ message: err.response.data.message })

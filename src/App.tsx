@@ -7,6 +7,8 @@ import DashboardLayout from "./layout/DashboardLayout";
 import DashboardHome from "./pages/admin/DashboardHome";
 import DashboardProducts from "./pages/admin/DashboardProducts";
 import VerifyOTP from "./pages/verify/VerifyOtp";
+import DashboardCreateProduct from "./pages/admin/DashboardCreateProduct";
+import DashboardCreateCategory from "./pages/admin/DashboardCategory";
 
 function App() {
   return (
@@ -26,6 +28,9 @@ function App() {
             <Route path='/dashboard' element={<DashboardLayout />}>
               <Route index element={<DashboardHome />} />
               <Route path='products' element={<DashboardProducts />} />
+              <Route path='create-product' element={<DashboardCreateProduct />} />
+              <Route path='create-category' element={<DashboardCreateCategory />} />
+              
             </Route>
 
           {/* Verify Opt */}

@@ -1,10 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit'
 import globalSlice from './features/globals'
+import { dashboardApi } from './features/Dashboard/dashboardSlice'
 
 export const store = configureStore({
     reducer: {
-        email: globalSlice
+        globals: globalSlice,
+        [dashboardApi.reducerPath]: dashboardApi.reducer,
     },
+
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware().concat(dashboardApi.middleware),
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
