@@ -235,8 +235,33 @@ const Header: React.FC = () => {
             ))}
           </div>
         </div>
+
+        {/* ===== Bottom categories (زي ما هي) ===== */}
+        <div className="bg-[#232f3e] text-white">
+          <div className="flex items-center px-4 md:px-6 py-2 gap-6 text-sm overflow-x-auto">
+            <button className="flex items-center hover:text-orange-400">
+              <Menu className="w-5 h-5 mr-2" />
+              All
+            </button>
+            <Link to="/products" className="flex items-center shrink-0">
+
+              <span className="ml-1 font-bold">products</span>
+            </Link>
+            {categories.map((cat) => (
+              <Link
+                key={cat}
+                to="/"
+                className="whitespace-nowrap hover:text-orange-400"
+              >
+                {cat}
+              </Link>
+            ))}
+          </div>
+        </div>
+
       </header>
     </>
+
   );
 };
 
