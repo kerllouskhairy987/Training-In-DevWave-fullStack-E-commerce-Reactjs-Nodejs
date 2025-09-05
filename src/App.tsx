@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import SignUp from "./pages/Register/SignUp";
@@ -7,27 +7,8 @@ import RootLayout from "./layout/RootLayout";
 import DashboardLayout from "./layout/DashboardLayout";
 import DashboardHome from "./pages/admin/DashboardHome";
 import DashboardProducts from "./pages/admin/DashboardProducts";
-import VerifyOTP from "./pages/verify/VerifyOtp";
 import DashboardCreateProduct from "./pages/admin/DashboardCreateProduct";
 import DashboardCreateCategory from "./pages/admin/DashboardCategory";
-=======
-
-
-import './App.css'
-import { Button } from './components/ui/button'
-import { Input } from './components/ui/input'
-import { ModeToggle } from './components/mode-toggle'
-import  Products  from './components/products/Product'
-import  ProductDetails  from './components/ProductDetails/ProductDetails'
-
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home/Home';
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import SignUp from './pages/Register/SignUp';
-import LogIn from './pages/LogIn/Login';
->>>>>>> origin/products
-
 
 function App() {
   return (
@@ -51,16 +32,15 @@ function App() {
               <Route path='products' element={<DashboardProducts />} />
               <Route path='create-product' element={<DashboardCreateProduct />} />
               <Route path='create-category' element={<DashboardCreateCategory />} />
-
             </Route>
 
             {/* Verify Opt */}
-            <Route path="/verify-otp" element={<VerifyOTP />} />
+            {/* <Route path="/verify-otp" element={<VerifyOTP />} />
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<LogIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/products" element={<Products />} />
-            <Route path="/products/:id" element={<ProductDetails />} />
+            <Route path="/products/:id" element={<ProductDetails />} /> */}
 
           </Routes>
         </main>
