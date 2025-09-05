@@ -1,157 +1,33 @@
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "./ui/carousel";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "./ui/carousel";
 
-interface IProps{
-  imageURl:string,
-  title:string,
-  classname:string,
-  basis:string
+
+interface IProps {
+  classname: string;
+  basis: string;
+  title: string;
+  images: string[]; 
 }
 
-const BestSilerCarousel = ({imageURl,title,classname,basis}:IProps) => {
+const BestSilerCarousel = ({ classname, basis, title, images }: IProps) => {
   return (
     <div className={classname}>
-      <Carousel>
+        <Carousel>
         <h4 className="text-black font-bold  md:text-[22px] !mb-2 !ml-6">
          {title}
         </h4>
-        <CarouselContent>
-        
-         <CarouselItem className={basis}>
-            <img
-              src={imageURl}
-              alt=""
-              className=" h-[140px] md:h-[200px]"
-            />
+        <CarouselContent className="">
+            {images.map((img, index) => (
+          <CarouselItem  key={index} className={`${basis} `}>
+          <img
+           
+            src={img}
+           
+            className={`${basis} object-cover  h-[80px] md:h-[120px] `}
+          />
           </CarouselItem>
-            <CarouselItem className={basis}>
-            <img
-              src={imageURl}
-              alt=""
-             className=" h-[140px] md:h-[200px]"
-            />
-          </CarouselItem>
-            <CarouselItem className={basis}>
-            <img
-              src={imageURl}
-              alt=""
-              className=" h-[140px] md:h-[200px]"
-            />
-          </CarouselItem>
-            <CarouselItem className={basis}>
-            <img
-              src={imageURl}
-              alt=""
-             className=" h-[140px] md:h-[200px]"
-            />
-          </CarouselItem>
-
-            <CarouselItem className={basis}>
-            <img
-              src={imageURl}
-              alt=""
-            className=" h-[140px] md:h-[200px]"
-            />
-          </CarouselItem>
-            <CarouselItem className={basis}>
-            <img
-              src={imageURl}
-              alt=""
-             className=" h-[140px] md:h-[200px]"
-            />
-          </CarouselItem>
-            <CarouselItem className={basis}>
-            <img
-              src={imageURl}
-              alt=""
-             className=" h-[140px] md:h-[200px]"
-            />
-          </CarouselItem>
-            <CarouselItem className={basis}>
-            <img
-              src={imageURl}
-              alt=""
-             className=" h-[140px] md:h-[200px]"
-            />
-          </CarouselItem>
-            <CarouselItem className={basis}>
-            <img
-              src={imageURl}
-              alt=""
-              className=" h-[140px] md:h-[200px]"
-            />
-          </CarouselItem>
-            <CarouselItem className={basis}>
-            <img
-              src={imageURl}
-              alt=""
-            className=" h-[140px] md:h-[200px]"
-            />
-          </CarouselItem>
-            <CarouselItem className={basis}>
-            <img
-              src={imageURl}
-              alt=""
-              className=" h-[140px] md:h-[200px]"
-            />
-          </CarouselItem>
-            <CarouselItem className={basis}>
-            <img
-              src={imageURl}
-              alt=""
-           className=" h-[140px] md:h-[200px]"
-            />
-          </CarouselItem>
-            <CarouselItem className={basis}>
-            <img
-              src={imageURl}
-              alt=""
-              className=" h-[140px] md:h-[200px]"
-            />
-          </CarouselItem>
-            <CarouselItem className={basis}>
-            <img
-              src={imageURl}
-              alt=""
-              className=" h-[140px] md:h-[200px]"
-            />
-          </CarouselItem>
-
-            <CarouselItem className={basis}>
-            <img
-              src={imageURl}
-              alt=""
-             className=" h-[140px] md:h-[200px]"
-            />
-          </CarouselItem>
-            <CarouselItem className={basis}>
-            <img
-              src={imageURl}
-              alt=""
-             className=" h-[140px] md:h-[200px]"
-            />
-          </CarouselItem>
-            <CarouselItem className={basis}>
-            <img
-              src={imageURl}
-              alt=""
-            className=" h-[140px] md:h-[200px]"
-            />
-          </CarouselItem>
-
-
-            <CarouselItem className={basis}>
-            <img
-              src={imageURl}
-              alt=""
-          className=" h-[140px] md:h-[200px]"
-            />
-          </CarouselItem>
+        ))}
+  
+           
         </CarouselContent>
         <CarouselPrevious className=" size-10 md:size-16 left-0 h-[100px] rounded-r-md text-black bg-white" />
         <CarouselNext className=" size-10 md:size-16  right-0 h-[100px] rounded-l-md text-black bg-white" />
