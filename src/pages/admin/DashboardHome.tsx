@@ -1,6 +1,7 @@
 
 import UsersChart from "@/components/admin/Charts/Users";
 import DashboardDataCards from "@/components/admin/DashboardDataCards";
+import SalesTaple from "@/components/admin/SalesTaple";
 
 
 const DashboardHome = () => {
@@ -13,6 +14,7 @@ const DashboardHome = () => {
      <DashboardDataCards/> 
     <div className="mt-10 px-8">
       <UsersChart/>
+      <SalesTaple/>
     </div>
     </div>
   );

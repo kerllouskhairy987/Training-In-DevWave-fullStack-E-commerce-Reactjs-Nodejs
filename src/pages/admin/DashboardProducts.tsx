@@ -16,7 +16,7 @@ const DashboardProducts = () => {
     const tableHeading = ["id", "title", "category", "actions"]
 
     return (
-        <Table className="px-2 my-4">
+        <Table className="px-2 my-4 text-black">
             <TableCaption>A list of your recent products.</TableCaption>
             <TableHeader>
                 <TableRow>

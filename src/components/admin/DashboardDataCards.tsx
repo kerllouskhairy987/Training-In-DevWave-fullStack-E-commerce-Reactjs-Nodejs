@@ -65,7 +65,7 @@ const DashboardDataCards = () => {
         setOrdersCount(ordersRes?.data?.data?.pagination?.totalOrders ?? 0);
         setUsersCount(usersRes?.data?.data?.length);
         setTotalSales(total);
-        console.log(ordersRes?.data?.data);
+      
       } catch (err) {
         console.error("Error fetching dashboard data", err);
       }
@@ -108,8 +108,8 @@ const DashboardDataCards = () => {
         className="flex  flex-col items-center justify-center bg-white mt-10 p-8 rounded-xl shadow"
       >
         <span className="mb-3">{item.icon}</span>
-        <span className="text-3xl text-gray-600">{item.Count}</span>
-        <span className=" text-[18px] font-normal  text-gray-400">
+        <span className="text-3xl text-gray-600 text-center">{item.Count}</span>
+        <span className=" text-[18px] font-normal  text-gray-400 text-center">
           {item.title}
         </span>
       </div>
