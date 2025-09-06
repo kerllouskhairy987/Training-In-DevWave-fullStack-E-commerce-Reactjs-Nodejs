@@ -17,7 +17,7 @@ export async function getProducts() {
         return err?.message
     }
 }
-export async function getSingleProduct(id: any) {
+export async function getSingleProduct(id: string) {
     try {
 
         const { data } = await axios.get(`https://training-in-dev-wave-full-stack-e-c.vercel.app/api/products/${id}`, {

@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// import React from 'react'
-// import photo1 from '../../assets/ec1cb2ca9398084e3d461759e09e178d2ab44455.png'
 import photo2 from '../../assets/5cc80a9ff9fcf40affa52f2a3e86ee3e879a6fe1.png'
 import photo3 from '../../assets/cab539f5cc8b103f8019e86842eaf42547935781.png'
 import photo4 from '../../assets/263e07897ddddc42823681e36d66cce284e8486d.png'
@@ -11,69 +9,46 @@ import ReviewCard from '../ui/ReviewCard'
 import { getProductFeedback, getProductStats, getSingleProduct } from '../../Api\'s/products'
 import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'react-router-dom'
+import { useAddToCartMutation } from '@/app/features/shopping/shoppingSlice'
+import { useAppSelector } from '@/app/hooks/hooks'
+import type { RootState } from '@/app/store'
+import SpinnerComponent from '../ui/Spinner'
+import { useEffect } from 'react'
+import { ErrorToast, successToast } from '@/notification'
+import { Button } from '../ui/button'
+
 export default function ProductDetails() {
 
   const { id } = useParams()
-  console.log(id)
+
   const {
     data: singleProduct,
-    // isLoading,
-    // error,
   } = useQuery({
     queryKey: ["singleProduct"],
-    queryFn: () => getSingleProduct(id),
-    staleTime: 1000 * 60 * 5, // cache for 5 min
-    // cacheTime: 1000 * 60 * 10,
+    queryFn: () => getSingleProduct(String(id)),
+    refetchOnMount: true
   });
+
+  console.log("--/......", singleProduct)
 
 
   const {
-    data: productStats,
-    // isLoading: isLoadingStats,
-    // error: errorStats,
+    data: productStats
   } = useQuery({
     queryKey: ["productStats"],
     queryFn: () => getProductStats(id),
-    staleTime: 1000 * 60 * 5, // cache for 5 min
-    // cacheTime: 1000 * 60 * 10,
   });
-  //     const {
-  //   data: getfeedaback,
-  //   isLoading: isLoadingFeedback,
-  //   error: errorFeedback,
-  // } = useQuery({
-  //   queryKey: ["productFeedback"],
-  //   queryFn: () => getProductFeedback(id),
-  //   staleTime: 1000 * 60 * 5, // cache for 5 min
-  //   cacheTime: 1000 * 60 * 10,
-  // });
-  console.log(productStats)
+
   const {
-    data: productfeedback,
-    // isLoading: isLoadingFeedback,
-    // error: errorFeedback,
+    data: productfeedback
   } = useQuery({
     queryKey: ["productFeedback", id], // include id in the key
     queryFn: () => getProductFeedback(id),
     enabled: !!id, // only run if id exists
-    staleTime: 1000 * 60 * 5, // cache for 5 min
-    // cacheTime: 1000 * 60 * 10,
   });
 
 
   const feedbackList = productfeedback?.feedbacks ?? [];
-  // if (isLoadingFeedback) {
-  //   return <p>Loading feedback...</p>;
-  // }
-
-  // if (errorFeedback) {
-  //   return <p>Error loading feedback: {errorFeedback.message}</p>;
-  // }
-
-  console.log(productfeedback)
-  console.log(feedbackList)
-  console.log(singleProduct)
-
 
   const ourProduct = singleProduct?.product
 
@@ -84,6 +59,30 @@ export default function ProductDetails() {
       day: "numeric",
     })
     : "N/A";
+
+  // ---------------------------------------------- State Management ----------------------------------------------
+  // Add To Cart
+
+  const [addToCart, { isLoading, data, isSuccess, error }] = useAddToCartMutation()
+  console.log("=-=-= product", data, error)
+
+  const { quantityInCart } = useAppSelector((state: RootState) => state.globals)
+
+
+  const handleAddToCart = () => {
+    console.log("added to cart")
+    addToCart({ productId: ourProduct?._id, quantity: Number(quantityInCart) })
+  }
+
+  useEffect(() => {
+    if (error) {
+      const err = error as { data: { error: string } }
+      ErrorToast({ message: err.data.error })
+    }
+    if (isSuccess) {
+      successToast({ message: data.message })
+    }
+  }, [error, isSuccess, data?.message])
 
   return (
     <div>
@@ -153,9 +152,9 @@ export default function ProductDetails() {
           {/* About this item */}
           <h3 className="text-lg font-bold mt-4">About this item</h3>
           <ul className="list-disc pl-6 space-y-1 text-sm ">
-            {ourProduct?.aboutItem?.map(({ item, index }: { item: string, index: number }) => {
-              return <li key={index}>{item}</li>
-            })}
+            {ourProduct?.aboutItem?.map((item: string, index: number) => (
+              <li key={index}>{item}</li>
+            ))}
           </ul>
         </div>
 
@@ -175,9 +174,15 @@ export default function ProductDetails() {
 
           <p className="font-bold text-[#B12704]">Usually ships within 4 to 5 days</p>
           <MultipleSelect />
-          <button className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-medium py-2 rounded-md">
-            Add to Cart
-          </button>
+          <Button
+            className="cursor-pointer w-full bg-yellow-400 hover:bg-yellow-500 text-black font-medium py-2 rounded-md"
+            onClick={() => {
+              if (isLoading) return
+              handleAddToCart()
+            }}
+          >
+            {isLoading ? <SpinnerComponent /> : "Add to Cart"}
+          </Button>
           <button className="w-full bg-orange-400 hover:bg-orange-500 text-white font-medium py-2 rounded-md">
             Buy Now
           </button>
@@ -241,9 +246,6 @@ export default function ProductDetails() {
           <p className="text-gray-600">Be the first to review this item</p>
         </div>
       )}
-
-
-
     </div>
 
   )

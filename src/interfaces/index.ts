@@ -62,3 +62,45 @@ export interface IFormField {
     defaultValue?: string;
     readOnly?: boolean;
 }
+
+// ----------------------------------------------------------------------
+// state management
+
+export interface IGetCartResponse {
+    success: boolean;
+    message: string;
+    data: {
+        _id: string;
+        user: string;
+        items: {
+            product: {
+                _id: string;
+                name: string;
+                price: number;
+            };
+            quantity: number;
+            price: number;
+            _id: string;
+        }[];
+        totalAmount: number;
+    };
+}
+
+export interface IAddToCartResponse {
+    success: boolean;
+    message: string;
+    data: {
+        _id: string;
+        user: string;
+        items: {
+            product: {
+                _id: string;
+                name: string;
+                price: number;
+            };
+            quantity: number;
+            price: number;
+            _id: string;
+        }[];
+    };
+}

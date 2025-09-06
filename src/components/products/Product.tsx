@@ -50,8 +50,7 @@ export default function Products() {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
-
-
+        
         const brandOptions = data.brands.map((brand: string[]) => ({
           label: brand,
           value: brand,

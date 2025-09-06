@@ -113,7 +113,7 @@ const DashboardCreateCategory = () => {
 
                                     <AlertModal
                                         isLoading={isLoadingDelete}
-                                        deleteCategoryHandler={() => deleteCategoryHandler(category._id)}>
+                                        onDelete={() => deleteCategoryHandler(category._id)}>
                                         <Button variant={"destructive"}>
                                             <Trash /> Delete
                                         </Button>

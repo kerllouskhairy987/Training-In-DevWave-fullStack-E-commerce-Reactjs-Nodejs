@@ -12,6 +12,7 @@ import DashboardCreateCategory from "./pages/admin/DashboardCategory";
 import VerifyOTP from "./pages/verify/VerifyOtp";
 import Products from "./components/products/Product";
 import ProductDetails from "./components/ProductDetails/ProductDetails";
+import CartPage from "./pages/CartPage";
 
 function App() {
   return (
@@ -30,7 +31,7 @@ function App() {
               <Route path="profile" element={<h2>profile page</h2>} />
               <Route path="/products" element={<Products />} />
               <Route path="/products/:id" element={<ProductDetails />} />
-
+              <Route path="/cart" element={<CartPage />} />
             </Route>
 
             {/* Admin Layout */}
@@ -43,12 +44,6 @@ function App() {
 
             {/* Verify Opt */}
             <Route path="/verify-otp" element={<VerifyOTP />} />
-            {/* 
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<LogIn />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/products/:id" element={<ProductDetails />} /> */}
 
           </Routes>
         </main>

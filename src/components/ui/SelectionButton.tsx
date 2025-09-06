@@ -1,72 +1,48 @@
-import * as React from 'react';
-import { useTheme } from '@mui/material/styles';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import { getQuantityForShoppingCart } from "@/app/features/globals";
+import { useAppDispatch, useAppSelector } from "@/app/hooks/hooks";
+import type { RootState } from "@/app/store";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
-
-const names = [
-1,2,3,4,5,6,7,8,9,10
+const quantities = [
+  1, 2, 3, 4, 5, 6, 7, 8, 9, 10
 ];
 
-function getStyles(name, personName, theme) {
-  return {
-    fontWeight: personName.includes(name)
-      ? theme.typography.fontWeightMedium
-      : theme.typography.fontWeightRegular,
-  };
-}
-
 export default function MultipleSelect() {
-  const theme = useTheme();
-  const [personName, setPersonName] = React.useState([]);
+  const { quantityInCart } = useAppSelector((state: RootState) => state.globals)
+  const dispatch = useAppDispatch();
 
-  const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-       value
-    );
+
+  const handleChange = (value: string) => {
+    dispatch(getQuantityForShoppingCart(value));
   };
 
   return (
     <div>
-      <FormControl sx={{  width:'100%'}}>
-        <InputLabel id="demo-multiple-name-label">Quantity</InputLabel>
-        <Select
-          labelId="demo-multiple-name-label"
-          id="demo-multiple-name"
-          multiple
-          value={personName}
-          onChange={handleChange}
-          input={<OutlinedInput label="Quantity" />}
-          MenuProps={MenuProps}
-        >
-          {names.map((name) => (
-            <MenuItem
-              key={name}
-              value={name}
-              style={getStyles(name, personName, theme)}
-            >
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+      <Select value={quantityInCart} onValueChange={handleChange}>
+        <SelectTrigger className="w-[180px]">
+          <SelectValue placeholder="Select a fruit" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            <SelectLabel>my quantity</SelectLabel>
+            {
+              quantities.map((quantity) => (
+                <SelectItem key={quantity} value={String(quantity)}>
+                  {quantity}
+                </SelectItem>
+              ))
+            }
+          </SelectGroup>
+        </SelectContent>
+      </Select>
     </div>
   );
 }

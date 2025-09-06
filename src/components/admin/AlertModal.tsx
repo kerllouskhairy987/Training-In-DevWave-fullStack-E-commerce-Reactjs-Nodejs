@@ -14,11 +14,11 @@ import SpinnerComponent from "../ui/Spinner";
 type TProps = {
     children: React.ReactNode
     isLoading: boolean;
-    deleteCategoryHandler: () => void
+    onDelete: () => void
 }
 
 
-const AlertModal = ({ children, isLoading, deleteCategoryHandler }: TProps) => {
+const AlertModal = ({ children, isLoading, onDelete }: TProps) => {
 
     return (
         <AlertDialog>
@@ -37,7 +37,7 @@ const AlertModal = ({ children, isLoading, deleteCategoryHandler }: TProps) => {
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
                     <Button type={isLoading ? "button" : "submit"} variant={"destructive"} onClick={() => {
                         if (isLoading) return;
-                        deleteCategoryHandler()
+                        onDelete()
                     }}>
                         {isLoading ? <SpinnerComponent /> : "Delete"}
                     </Button>
