@@ -3,9 +3,11 @@ import { Outlet } from 'react-router-dom'
 
 const DashboardLayout = () => {
     return (
-        <div className='container mx-auto pe-2 flex items-start gap-4'>
+        <div className='  flex items-start  bg-[#F8F8F8] h-screen'>
             <DashboardAside />
-            <Outlet />
+             <div className="flex-1 h-full overflow-auto">
+                <Outlet />
+            </div>
         </div>
     )
 }
