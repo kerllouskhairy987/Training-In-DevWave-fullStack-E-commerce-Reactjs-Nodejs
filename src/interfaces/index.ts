@@ -1,46 +1,46 @@
 export interface IProduct {
-    _id: number;
-    name: string;
-    description: string;
-    price: number;
-    discount: number;
-    rating: number;
-    stock: number;
-    brand: string;
-    stars: number;
-    category: string;
-    thumbnail: string;
-    images: string[];
+  _id: number;
+  name: string;
+  description: string;
+  price: number;
+  discount: number;
+  rating: number;
+  stock: number;
+  brand: string;
+  stars: number;
+  category: string;
+  thumbnail: string;
+  images: string[];
 }
 
 export interface ICategory {
-    _id: string;
-    name: string;
-    description: string;
+  _id: string;
+  name: string;
+  description: string;
 }
 
 export interface IResponseProduct {
-    page: number;
-    pages: number;
-    products: IProduct[];
-    success: boolean;
-    total: number;
+  page: number;
+  pages: number;
+  products: IProduct[];
+  success: boolean;
+  total: number;
 }
 
 export interface IResponseCategory {
-    success: boolean;
-    categories: ICategory[]
+  success: boolean;
+  categories: ICategory[];
 }
 
 export interface ICreateCAtegoryResponse {
-    message: string;
-    success: boolean;
+  message: string;
+  success: boolean;
 }
 
 export interface IFormField {
-    name: string;
-    label?: string;
-    type:
+  name: string;
+  label?: string;
+  type:
     | "text"
     | "email"
     | "password"
@@ -54,58 +54,57 @@ export interface IFormField {
     | "radio"
     | "select"
     | "hidden"
-    | "textarea";
-    placeholder?: string;
-    disabled?: boolean;
-    autoFocus?: boolean;
-    id?: string;
-    defaultValue?: string;
-    readOnly?: boolean;
-<<<<<<< HEAD
+    | "textarea"
+    | "image-upload";
+  placeholder?: string;
+  disabled?: boolean;
+  autoFocus?: boolean;
+  id?: string;
+  defaultValue?: string;
+  readOnly?: boolean;
+  maxImages?: number;
+  onImagesChange?: (images: string[]) => void;
 }
 
 // ----------------------------------------------------------------------
 // state management
 
 export interface IGetCartResponse {
-    success: boolean;
-    message: string;
-    data: {
+  success: boolean;
+  message: string;
+  data: {
+    _id: string;
+    user: string;
+    items: {
+      product: {
         _id: string;
-        user: string;
-        items: {
-            product: {
-                _id: string;
-                name: string;
-                price: number;
-                images: string[];
-            };
-            quantity: number;
-            price: number;
-            _id: string;
-        }[];
-        totalAmount: number;
-    };
+        name: string;
+        price: number;
+        images: string[];
+      };
+      quantity: number;
+      price: number;
+      _id: string;
+    }[];
+    totalAmount: number;
+  };
 }
 
 export interface IAddToCartResponse {
-    success: boolean;
-    message: string;
-    data: {
+  success: boolean;
+  message: string;
+  data: {
+    _id: string;
+    user: string;
+    items: {
+      product: {
         _id: string;
-        user: string;
-        items: {
-            product: {
-                _id: string;
-                name: string;
-                price: number;
-            };
-            quantity: number;
-            price: number;
-            _id: string;
-        }[];
-    };
+        name: string;
+        price: number;
+      };
+      quantity: number;
+      price: number;
+      _id: string;
+    }[];
+  };
 }
-=======
-}
->>>>>>> ProfileToUser
