@@ -2,6 +2,7 @@
 import { useFormik } from 'formik'
 import axios from 'axios';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
+
 import * as yup from 'yup'
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
@@ -147,6 +148,7 @@ export default function SignUp() {
                             <Link to="/login" className="text-blue-600 hover:underline ">
                                 Sign in
                             </Link>
+
                         </div>
                     </div>
                 </div>

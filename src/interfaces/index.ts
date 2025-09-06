@@ -61,6 +61,7 @@ export interface IFormField {
     id?: string;
     defaultValue?: string;
     readOnly?: boolean;
+<<<<<<< HEAD
 }
 
 // ----------------------------------------------------------------------
@@ -105,3 +106,6 @@ export interface IAddToCartResponse {
         }[];
     };
 }
+=======
+}
+>>>>>>> ProfileToUser

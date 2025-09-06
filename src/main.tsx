@@ -20,5 +20,11 @@ createRoot(document.getElementById('root')!).render(
         </QueryClientProvider>
       </ThemeProvider>
     </Provider>
+<<<<<<< HEAD
+=======
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <App />
+    </ThemeProvider>
+>>>>>>> ProfileToUser
   </StrictMode >,
 )

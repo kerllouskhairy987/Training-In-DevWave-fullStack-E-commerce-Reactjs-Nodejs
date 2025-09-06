@@ -16,6 +16,7 @@ const VerifyOTP: React.FC = () => {
 
     const { email } = useAppSelector((state: RootState) => state.globals)
 
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
         const value = e.target.value;
 
@@ -59,6 +60,7 @@ const VerifyOTP: React.FC = () => {
             localStorage.setItem("userRole", data.user.role)
             successToast({ message: `${data.message}, You will be redirected to ${data.user.role === 'admin' ? 'Dashboard' : 'Profile'} page` });
 
+
             setTimeout(() => {
                 if (data.user.role === 'admin') {
                     navigate("/dashboard")
@@ -66,6 +68,8 @@ const VerifyOTP: React.FC = () => {
                     navigate("/profile")
                 }
             }, 2000)
+            
+
 
         } catch (error) {
             const err = error as { response: { data: { message: string } } }

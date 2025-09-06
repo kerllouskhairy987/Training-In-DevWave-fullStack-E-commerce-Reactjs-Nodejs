@@ -10,7 +10,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { successToast } from "@/notification";
-import { useGetCartQuery } from "@/app/features/shopping/shoppingSlice";
 
 interface CountryOption {
   code: string;
@@ -62,9 +61,6 @@ const Header: React.FC = () => {
     successToast({ message: "You have logged out successfully" })
     setToken(null)
   }
-
-  // Get Cart
-  const { isLoading, data } = useGetCartQuery();
 
   return (
     <>
@@ -213,10 +209,7 @@ const Header: React.FC = () => {
             </div>
 
             {/* Cart */}
-            <Link to="/cart" className="flex items-center shrink-0 relative">
-              <span className="absolute -top-3 left-5 px-[2px] h-5 rounded-md bg-orange-400 text-white text-md flex justify-center items-center">
-                {isLoading ? 0 : data?.data.items.length}
-              </span>
+            <Link to="/cart" className="flex items-center shrink-0">
               <ShoppingCart className="w-7 h-7" />
               <span className="ml-1 font-bold">Cart</span>
             </Link>
@@ -234,7 +227,30 @@ const Header: React.FC = () => {
             {categories.map((cat) => (
               <Link
                 key={cat}
-                to="/products"
+                to="/"
+                className="whitespace-nowrap hover:text-orange-400"
+              >
+                {cat}
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* ===== Bottom categories (زي ما هي) ===== */}
+        <div className="bg-[#232f3e] text-white">
+          <div className="flex items-center px-4 md:px-6 py-2 gap-6 text-sm overflow-x-auto">
+            <button className="flex items-center hover:text-orange-400">
+              <Menu className="w-5 h-5 mr-2" />
+              All
+            </button>
+            <Link to="/products" className="flex items-center shrink-0">
+
+              <span className="ml-1 font-bold">products</span>
+            </Link>
+            {categories.map((cat) => (
+              <Link
+                key={cat}
+                to="/"
                 className="whitespace-nowrap hover:text-orange-400"
               >
                 {cat}

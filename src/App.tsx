@@ -1,4 +1,3 @@
-
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import SignUp from "./pages/Register/SignUp";
@@ -7,12 +6,10 @@ import RootLayout from "./layout/RootLayout";
 import DashboardLayout from "./layout/DashboardLayout";
 import DashboardHome from "./pages/admin/DashboardHome";
 import DashboardProducts from "./pages/admin/DashboardProducts";
-import DashboardCreateProduct from "./pages/admin/DashboardCreateProduct";
-import DashboardCreateCategory from "./pages/admin/DashboardCategory";
 import VerifyOTP from "./pages/verify/VerifyOtp";
-import Products from "./components/products/Product";
-import ProductDetails from "./components/ProductDetails/ProductDetails";
-import CartPage from "./pages/CartPage";
+import UserProfile from "./pages/profile/ProfilePage";
+import DashboardCreateCategory from "./pages/admin/DashboardCategory";
+import DashboardCreateProduct from "./pages/admin/DashboardCreateProduct";
 
 function App() {
   return (
@@ -28,10 +25,7 @@ function App() {
               <Route index element={<Home />} />
               <Route path="login" element={<LogIn />} />
               <Route path="signup" element={<SignUp />} />
-              <Route path="profile" element={<h2>profile page</h2>} />
-              <Route path="/products" element={<Products />} />
-              <Route path="/products/:id" element={<ProductDetails />} />
-              <Route path="/cart" element={<CartPage />} />
+              <Route path="profile" element={<UserProfile />} />
             </Route>
 
             {/* Admin Layout */}
@@ -42,9 +36,8 @@ function App() {
               <Route path='create-category' element={<DashboardCreateCategory />} />
             </Route>
 
-            {/* Verify Opt */}
-            <Route path="/verify-otp" element={<VerifyOTP />} />
-
+          {/* Verify Opt */}
+          <Route path="/verify-otp" element={<VerifyOTP />} />
           </Routes>
         </main>
 

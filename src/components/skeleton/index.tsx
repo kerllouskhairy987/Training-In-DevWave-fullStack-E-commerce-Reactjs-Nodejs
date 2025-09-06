@@ -101,47 +101,4 @@ const AllCategoriesSkeleton = () => {
   )
 }
 
-const CartSkeleton = () => {
-  return (
-    <>
-      <ul>
-        {[...Array(3)].map((_, i) => (
-          <li key={i} className="mb-4">
-            <div className="flex gap-6 justify-between border p-3 rounded-md">
-              <div className="flex flex-col sm:flex-row items-center gap-2">
-                <Skeleton className="w-24 h-24 rounded-full" />
-                <div className="space-y-2">
-                  <Skeleton className="h-5 w-32" />
-                  <Skeleton className="h-4 w-20" />
-                </div>
-              </div>
-              <div className="flex-1 flex items-end justify-end">
-                <div className="flex items-center gap-3">
-                  <Skeleton className="h-5 w-12" />
-                  <Skeleton className="h-9 w-9 rounded-md" />
-                </div>
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
-
-      <div className="flex flex-col justify-end items-end pt-6 space-y-2">
-        <div className="flex gap-2">
-          <Skeleton className="h-5 w-16" />
-          <Skeleton className="h-5 w-10" />
-        </div>
-        <div className="flex gap-2">
-          <Skeleton className="h-5 w-16" />
-          <Skeleton className="h-5 w-10" />
-        </div>
-        <div className="flex gap-2">
-          <Skeleton className="h-5 w-16" />
-          <Skeleton className="h-5 w-10" />
-        </div>
-      </div>
-    </>
-  )
-}
-
-export { DashboardProductsTableSkeleton, AllCategoriesSkeleton, CartSkeleton }
+export { DashboardProductsTableSkeleton, AllCategoriesSkeleton }
