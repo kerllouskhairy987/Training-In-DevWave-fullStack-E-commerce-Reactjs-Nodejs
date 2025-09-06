@@ -1,7 +1,7 @@
-import React from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Avatar from '@mui/material/Avatar';
 import { Star } from "lucide-react";
-const ReviewCard = ({feedback}) => {
+const ReviewCard = ({feedback}: any) => {
   return (
     <div className="max-w-2xl p-4  rounded-lg  bg-white">
       {/* User Info */}

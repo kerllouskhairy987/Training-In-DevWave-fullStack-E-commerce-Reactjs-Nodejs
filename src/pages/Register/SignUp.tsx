@@ -1,7 +1,7 @@
 // import React from 'react'
 import { useFormik } from 'formik'
 import axios from 'axios';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import * as yup from 'yup'
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
@@ -144,9 +144,9 @@ export default function SignUp() {
                         {/* Sign in link */}
                         <div className="mt-6 text-sm text-black">
                             Already have an account?{" "}
-                            <a href="/login" className="text-blue-600 hover:underline ">
+                            <Link to="/login" className="text-blue-600 hover:underline ">
                                 Sign in
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </div>

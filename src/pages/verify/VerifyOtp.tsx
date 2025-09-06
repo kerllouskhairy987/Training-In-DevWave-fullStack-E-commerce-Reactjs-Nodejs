@@ -14,7 +14,7 @@ const VerifyOTP: React.FC = () => {
 
     const navigate = useNavigate()
 
-    const { email } = useAppSelector((state: RootState) => state.email)
+    const { email } = useAppSelector((state: RootState) => state.globals)
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
         const value = e.target.value;

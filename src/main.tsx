@@ -20,8 +20,5 @@ createRoot(document.getElementById('root')!).render(
         </QueryClientProvider>
       </ThemeProvider>
     </Provider>
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <App />
-    </ThemeProvider>
   </StrictMode >,
 )
