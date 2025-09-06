@@ -56,8 +56,7 @@ const CartItems = () => {
 
     return (
         <div >
-            {/* // {isMounted && cart && cart.length > 0 ? ( */}
-            {cart && cart.length > 0
+            {cart && cart.length > 0 && !isLoading
                 ? (
                     <>
                         <ul>
@@ -66,11 +65,11 @@ const CartItems = () => {
                                     <div className="flex gap-6 justify-between border p-3 rounded-md hover:bg-primary/10">
                                         <div className="flex flex-col sm:flex-row items-center gap-2">
                                             <div className="relative w-24 h-24 rounded-full overflow-hidden">
-                                                {/* <img
-                                                    src={item.product.image}
-                                                    className="object-cover"
+                                                <img
+                                                    src={item.product.images[0]}
+                                                    className="object-cover border border-red-500 rounded-full w-full h-full"
                                                     alt={item.product.name}
-                                                /> */}
+                                                />
                                             </div>
                                             <div>
                                                 <h4 className="font-semibold md:text-lg">{item.product.name}</h4>

@@ -77,6 +77,7 @@ export interface IGetCartResponse {
                 _id: string;
                 name: string;
                 price: number;
+                images: string[];
             };
             quantity: number;
             price: number;
