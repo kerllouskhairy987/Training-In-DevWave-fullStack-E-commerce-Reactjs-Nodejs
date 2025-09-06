@@ -23,7 +23,21 @@ export const dashboardApi = createApi({
         }),
 
         // Create Product
-
+        createProduct: builder.mutation<{ status: boolean, message: string }, { body: Record<string, string | File>, category: string }>({
+            query: ({ body, category }) => ({
+                url: `/api/products/create`,
+                method: 'POST',
+                headers: {
+                    Authorization: localStorage.getItem('userToken')
+                        ? `Bearer ${localStorage.getItem('userToken')}`
+                        : "",
+                },
+                body: {
+                    ...body,
+                    category: category
+                }
+            })
+        }),
 
 
 
@@ -102,7 +116,7 @@ export const dashboardApi = createApi({
 })
 
 export const {
-    useGetProductsQuery,
+    useGetProductsQuery, useCreateProductMutation,
     useGetAllCategoriesQuery, useCreateCategoryMutation, useUpdateCategoryMutation, useDeleteCategoryMutation
 }
     = dashboardApi

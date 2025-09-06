@@ -18,7 +18,7 @@ const useFormFields = ({ slug }: { slug: string }) => {
 
     const createProductFields = (): IFormField[] => [
         {
-            name: "title",
+            name: "name",
             label: "Title",
             type: "text",
             autoFocus: true,
@@ -44,8 +44,8 @@ const useFormFields = ({ slug }: { slug: string }) => {
             type: "number",
         },
         {
-            name: "image",
-            label: "Image",
+            name: "banner",
+            label: "Banner",
             type: "file",
         },
         {
@@ -57,7 +57,12 @@ const useFormFields = ({ slug }: { slug: string }) => {
             name: "discount",
             label: "Discount",
             type: "number",
-        }
+        },
+        // {
+        //     name: "category",
+        //     label: "Category",
+        //     type: "text",
+        // }
     ]
 
     const getFormFields = (): IFormField[] => {

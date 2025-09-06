@@ -14,6 +14,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import ErrorHandling from "@/error/ErrorHandling"
 import { Edit, Eye, Trash } from "lucide-react"
 
 const DashboardProducts = () => {
@@ -23,11 +24,11 @@ const DashboardProducts = () => {
 
     const tableHeading = ["id", "name", "brand", "description", "price", "category", "stock", "stars", "discount", "images", "actions",]
 
-    const { isLoading, data, isError, error, isSuccess } = useGetProductsQuery({ page: currentPage })
-    console.log(isLoading, data?.products, isError, error, isSuccess)
+    const { isLoading, data, isError } = useGetProductsQuery({ page: currentPage })
+    // console.log(isLoading, data?.products, isError, error, isSuccess)
 
     if (isLoading) return <DashboardProductsTableSkeleton />
-    if (isError) return <h1>Something went wrong</h1>
+    if (isError) return <div className="flex justify-center min-h-screen items-center bg-black w-full"><ErrorHandling /></div>
 
     return (
         <div className="px-2 py-4">

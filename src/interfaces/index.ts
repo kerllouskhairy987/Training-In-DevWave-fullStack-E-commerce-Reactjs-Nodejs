@@ -1,5 +1,5 @@
 export interface IProduct {
-    _id: number;
+    _id?: number;
     name: string;
     description: string;
     price: number;
@@ -9,7 +9,7 @@ export interface IProduct {
     brand: string;
     stars: number;
     category: string;
-    thumbnail: string;
+    banner: string;
     images: string[];
 }
 
