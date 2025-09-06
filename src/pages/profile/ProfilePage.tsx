@@ -19,7 +19,6 @@ import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
 import axiosInstance from "@/config/axios-config";
 
-
 // تعريف نوع بيانات المستخدم
 interface UserData {
   _id: string;
