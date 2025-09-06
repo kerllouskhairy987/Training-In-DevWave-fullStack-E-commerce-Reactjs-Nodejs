@@ -5,10 +5,8 @@ import Pagination from "@/components/admin/Pagination"
 import { DashboardProductsTableSkeleton } from "@/components/skeleton"
 import { Button } from "@/components/ui/button"
 import {
-<<<<<<< HEAD
-=======
 
->>>>>>> ProfileToUser
+
     Table,
     TableBody,
     TableCaption,
@@ -21,11 +19,7 @@ import {
 import { Edit, Eye, Trash } from "lucide-react"
 
 const DashboardProducts = () => {
-<<<<<<< HEAD
-=======
-  // const { pathname } = useLocation()
 
->>>>>>> ProfileToUser
 
     // const { pathname } = useLocation()
     const { currentPage } = useAppSelector((state: RootState) => state.globals)
