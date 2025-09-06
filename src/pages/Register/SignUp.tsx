@@ -1,7 +1,10 @@
 // import React from 'react'
 import { useFormik } from 'formik'
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
+import * as yup from 'yup'
+import { useState } from 'react';
+
 
 interface registerValues {
     email: string;
@@ -9,17 +12,33 @@ interface registerValues {
 }
 
 export default function SignUp() {
+    const [apiError, setApiError] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
 
-    let navigate = useNavigate()
+    const navigate = useNavigate()
 
-    async function handleRegister(formValues: registerValues) {
-        // console.log(formValues)
-        const { email, password } = formValues
-        const response = await axios.post(`https://training-in-dev-wave-full-stack-e-c.vercel.app/api/auth/register`, { email, password })
-        console.log(response)
-        // if (data.success == 'true') {
-        //     navigate('/logIn')
-        // }
+
+    const validate = yup.object().shape({
+        email: yup.string().email('email is invalid').required('please enter your email address'),
+        password: yup.string().matches(/^[A-Z][a-z0-9]{5,10}$/, 'Password must start with a capital letter and be 6-11 letters long').required('password is required')
+    })
+
+
+
+    function handleRegister(formValues: registerValues) {
+        setIsLoading(true);
+        console.log(formValues)
+        axios.post(`https://training-in-dev-wave-full-stack-e-c.vercel.app/api/auth/register`, formValues)
+            .then(() => {
+                setIsLoading(false);
+                navigate('/logIn')
+            })
+            .catch((apiResponse) => {
+                setApiError(apiResponse?.response?.data?.message);
+                console.log(apiResponse?.response?.data?.message);
+                setIsLoading(false)
+
+            })
     }
 
 
@@ -28,17 +47,22 @@ export default function SignUp() {
             email: "",
             password: ""
         },
+        validationSchema: validate,
         onSubmit: handleRegister
 
     })
 
-
+    if (localStorage.getItem("userToken")) {
+        return <Navigate to="/" />
+    }
 
 
     return (
         <>
             <div>
+
                 <div className="flex flex-col items-center min-h-screen bg-gray-100">
+
                     {/* Logo */}
                     <div className="mt-10">
                         <img
@@ -48,11 +72,12 @@ export default function SignUp() {
                         />
                     </div>
 
+                    <div className='text-red-600' >{apiError}</div>
+
+
                     {/* Register Card */}
                     <div className="bg-white w-96 p-6 rounded-lg border border-gray-300 mt-6 shadow-sm">
                         <h1 className="text-2xl font-semibold mb-4">Create account</h1>
-
-
 
                         <form onSubmit={formik.handleSubmit}>
                             {/* Email */}
@@ -67,6 +92,9 @@ export default function SignUp() {
                                 placeholder="you@example.com"
                                 className="text-black w-full p-2 border border-gray-400 rounded-md mb-4 focus:ring-1 focus:ring-yellow-500 focus:border-yellow-500 outline-none"
                             />
+                            {formik.touched.email && formik.errors.email ? (
+                                <div className='text-red-600' >{formik.errors.email}</div>
+                            ) : null}
 
                             {/* Password */}
                             <label htmlFor='password' className="block text-sm font-medium mb-1 text-black">Password</label>
@@ -80,18 +108,28 @@ export default function SignUp() {
                                 placeholder="At least 6 characters"
                                 className="text-black w-full p-2 border border-gray-400 rounded-md mb-1 focus:ring-1 focus:ring-yellow-500 focus:border-yellow-500 outline-none"
                             />
-                            <p className="text-xs text-gray-600 mb-4">
+                            {/* <p className="text-xs text-gray-600 mb-4">
                                 Passwords must be at least 6 characters.
-                            </p>
+                            </p> */}
+                            {formik.touched.password && formik.errors.password ? (
+                                <div className='text-red-600'>{formik.errors.password}</div>
+                            ) : null}
+
 
                             {/* Create Button */}
-                            <button type='submit' className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-medium py-2 rounded-md">
+                            {isLoading ? <button
+                                type="button"
+                                disabled
+                                className="w-full bg-yellow-400 text-black font-medium py-2 rounded-md">
+
+                                loading
+                            </button> : <button
+                                type="submit"
+                                className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-medium py-2 rounded-md">
+
                                 Create your Amazon account
-                            </button>
+                            </button>}
                         </form>
-
-
-
                         {/* Legal text */}
                         <p className="mt-4 text-xs text-gray-600">
                             By creating an account, you agree to Amazon's{" "}
@@ -116,5 +154,5 @@ export default function SignUp() {
                 </div>
             </div>
         </>
-    )
+    );
 }
