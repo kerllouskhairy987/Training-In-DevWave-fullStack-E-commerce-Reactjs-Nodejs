@@ -1,5 +1,5 @@
 export interface IProduct {
-    _id?: number;
+    _id: number;
     name: string;
     description: string;
     price: number;
@@ -9,7 +9,7 @@ export interface IProduct {
     brand: string;
     stars: number;
     category: string;
-    banner: string;
+    thumbnail: string;
     images: string[];
 }
 
@@ -29,12 +29,26 @@ export interface IResponseProduct {
 
 export interface IResponseCategory {
     success: boolean;
-    categories: ICategory[]
+    categories: ICategory[];
 }
 
 export interface ICreateCAtegoryResponse {
     message: string;
     success: boolean;
+}
+
+export interface ICreateProduct {
+    brand: string,
+    description: string,
+    discount: number,
+    price: number,
+    stars: number,
+    stock: number,
+    name: string,
+    category: string,
+    images: string[],
+    saleRate: number,
+    deliveryDate: string;
 }
 
 export interface IFormField {
@@ -54,13 +68,17 @@ export interface IFormField {
     | "radio"
     | "select"
     | "hidden"
-    | "textarea";
+    | "textarea"
+    | "image-upload";
     placeholder?: string;
     disabled?: boolean;
     autoFocus?: boolean;
     id?: string;
     defaultValue?: string;
     readOnly?: boolean;
+    maxImages?: number;
+    max?: number;
+    onImagesChange?: (images: string[]) => void;
 }
 
 // ----------------------------------------------------------------------

@@ -101,6 +101,8 @@ const AllCategoriesSkeleton = () => {
   )
 }
 
+
+
 const CartSkeleton = () => {
   return (
     <>

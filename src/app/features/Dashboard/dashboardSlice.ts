@@ -1,4 +1,4 @@
-import type { ICreateCAtegoryResponse, IResponseCategory, IResponseProduct } from '@/interfaces'
+import type { ICreateCAtegoryResponse, ICreateProduct, IResponseCategory, IResponseProduct } from '@/interfaces'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const dashboardApi = createApi({
@@ -23,8 +23,8 @@ export const dashboardApi = createApi({
         }),
 
         // Create Product
-        createProduct: builder.mutation<{ status: boolean, message: string }, { body: Record<string, string | File>, category: string }>({
-            query: ({ body, category }) => ({
+        createProduct: builder.mutation<{ status: boolean, message: string }, ICreateProduct>({
+            query: ({ brand, description, discount, price, stars, stock, name, category, deliveryDate, images, saleRate }) => ({
                 url: `/api/products/create`,
                 method: 'POST',
                 headers: {
@@ -33,9 +33,18 @@ export const dashboardApi = createApi({
                         : "",
                 },
                 body: {
-                    ...body,
-                    category: category
-                }
+                    name,
+                    brand,
+                    description,
+                    price,
+                    category,
+                    stock,
+                    images,
+                    stars,
+                    deliveryDate,
+                    discount,
+                    saleRate,
+                },
             })
         }),
 

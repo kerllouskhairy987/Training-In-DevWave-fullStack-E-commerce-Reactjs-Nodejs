@@ -1,65 +1,107 @@
+
 import { useEffect, useRef } from "react"
 import { Button } from "../ui/button"
 import SpinnerComponent from "../ui/Spinner"
 import FormFields from "./FormFields"
 import useFormFields from "./hooks/useFormFields"
-import { ErrorToast } from "@/notification"
-import { useCreateProductMutation, useGetAllCategoriesQuery } from "@/app/features/Dashboard/dashboardSlice"
+import { ErrorToast, successToast } from "@/notification"
+import { useCreateProductMutation } from "@/app/features/Dashboard/dashboardSlice"
 import MultipleSelect from "../ui/SelectionButton"
+import { useState } from "react";
+// import type { ICreateProduct } from "@/interfaces"
 
 const FormCreateProduct = () => {
+
+    const [uploadedImages, setUploadedImages] = useState<string[]>([]);
+    const { getFormFields } = useFormFields({ slug: "create-product" });
+
     const formRef = useRef<HTMLFormElement>(null)
 
-    const { getFormFields } = useFormFields({ slug: "create-product" })
+    // const { getFormFields } = useFormFields({ slug: "create-product" })
+
+    const handleImagesChange = (images: string[]) => {
+        setUploadedImages(images);
+    };
 
     // Create Product
-    const [createProduct, { isLoading, data, isSuccess, error }] = useCreateProductMutation();
-    console.log("_____+",{ isLoading, data, isSuccess, error })
+    const [createProduct, { isLoading, data: dataCreateProduct, isSuccess, error }] = useCreateProductMutation();
+    console.log("_____+", { isLoading, error })
 
     // -------------------------------------------------
     // Get All Categories
-    const { isLoading: isLoadingAllCategories, data: allCategories } = useGetAllCategoriesQuery()
-    console.log(isLoadingAllCategories, allCategories)
+    // const { isLoading: isLoadingAllCategories, data: allCategories } = useGetAllCategoriesQuery()
+    // console.log(isLoadingAllCategories, allCategories)
 
     const submitHandlerCreateProduct = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        console.log("Form submitted with images:", uploadedImages);
+
+        const date = new Date();
+        const currentDate = date.toISOString();
+        console.log(currentDate)
+
 
         if (!formRef.current) return;
         const formData = new FormData(formRef.current);
-        const data: Record<string, string | File> = {};
+        const data: Record<string, string | number> = {};
         formData.forEach((value, key) => {
-            if (value instanceof File) {
-                data[key] = value;
+            if (key === "price" || key === "discount" || key === "stock" || key === "stars") {
+                data[key] = +value;
+                console.log("number", +value)
             } else {
                 data[key] = value.toString();
+                console.log("string", value)
             }
         });
 
-        const { name, description, price, discount, rating, stock, brand, stars, category, banner } = data;
+        const { name, description, price, discount, stock, stars, category, brand } = data;
 
-        if (name === "" || description === "" || price === "" || discount === "" || rating === "" || stock === "" || brand === "" || stars === "" || category === "" || banner === "") {
+        if (name === "" || description === "" || price === "" || discount === "" || stock === "" || uploadedImages.length === 0 || brand === "" || stars === "" || category === "") {
             ErrorToast({ message: "All fields are required" })
             return
         }
 
-        // console.log("___________________", data)
-        createProduct({ body: data, category: "68b81c00a5bd56a838df7217" })
-    }
 
+        createProduct({
+            name: name as string,
+            brand: brand as string,
+            description: description as string,
+            price: price as number,
+            category: "68ba136613295fcae2f5e4ec",
+            stock: stock as number,
+            images: uploadedImages,
+            deliveryDate: currentDate,
+            stars: stars as number,
+            discount: discount as number,
+            saleRate: 1000
+        })
+    }
+    
     useEffect(() => {
         if (error) {
             const err = error as { data: { message: string } };
             ErrorToast({ message: `${err.data.message}, All Fields Are Required` })
         }
-    }, [error])
+        
+        if (isSuccess) {
+            successToast({ message: dataCreateProduct.message })
+            formRef.current?.reset()
+            setUploadedImages([])
+        }
+    }, [error, isSuccess, dataCreateProduct?.message])
 
     return (
         <form onSubmit={submitHandlerCreateProduct} ref={formRef} className="flex flex-col gap-5">
-            {
-                getFormFields().map((field) => (
-                    <FormFields key={field.name} {...field} error={""} />
-                ))
-            }
+            {getFormFields().map((field) => (
+                <FormFields
+                    key={field.name}
+                    {...field}
+                    error={""}
+                    onImagesChange={
+                        field.type === "image-upload" ? handleImagesChange : undefined
+                    }
+                />
+            ))}
 
             <MultipleSelect />
 
@@ -72,4 +114,5 @@ const FormCreateProduct = () => {
     )
 }
 
-export default FormCreateProduct
+
+export default FormCreateProduct;

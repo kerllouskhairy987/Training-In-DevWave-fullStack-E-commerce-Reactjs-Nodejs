@@ -3,14 +3,14 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 
 export interface globalState {
     email: string,
-    currentPage: number;
     quantityInCart: string
+    currentPage : number
 }
 
 const initialState: globalState = {
     email: "",
     currentPage: 1,
-    quantityInCart: "1"
+    quantityInCart: "1" ,
 }
 
 export const globalSlice = createSlice({

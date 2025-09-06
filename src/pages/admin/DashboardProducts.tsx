@@ -5,6 +5,8 @@ import Pagination from "@/components/admin/Pagination"
 import { DashboardProductsTableSkeleton } from "@/components/skeleton"
 import { Button } from "@/components/ui/button"
 import {
+
+
     Table,
     TableBody,
     TableCaption,
@@ -16,8 +18,10 @@ import {
 } from "@/components/ui/table"
 import ErrorHandling from "@/error/ErrorHandling"
 import { Edit, Eye, Trash } from "lucide-react"
+import { Link } from "react-router-dom"
 
 const DashboardProducts = () => {
+
 
     // const { pathname } = useLocation()
     const { currentPage } = useAppSelector((state: RootState) => state.globals)
@@ -25,14 +29,13 @@ const DashboardProducts = () => {
     const tableHeading = ["id", "name", "brand", "description", "price", "category", "stock", "stars", "discount", "images", "actions",]
 
     const { isLoading, data, isError } = useGetProductsQuery({ page: currentPage })
-    // console.log(isLoading, data?.products, isError, error, isSuccess)
 
     if (isLoading) return <DashboardProductsTableSkeleton />
     if (isError) return <div className="flex justify-center min-h-screen items-center bg-black w-full"><ErrorHandling /></div>
 
     return (
-        <div className="px-2 py-4">
-            <Table className="bg-blue-700/50">
+        <div className="flex-1 px-2 py-4 !overflow-hidden">
+            <Table className="bg-blue-700/50 overflow-x-auto">
                 <TableCaption className=" text-yellow-600 font-bold text-sm">A list of your recent products.</TableCaption>
                 <TableHeader>
                     <TableRow>
@@ -71,9 +74,11 @@ const DashboardProducts = () => {
                             </TableCell>
                             <TableCell className="text-right">
                                 <div className="flex items-center gap-2">
-                                    <Button className="bg-yellow-600 text-white hover:bg-yellow-700 ">
-                                        <Eye />
-                                    </Button>
+                                    <Link to={`/products/${product._id}`}>
+                                        <Button className="bg-yellow-600 text-white hover:bg-yellow-700 ">
+                                            <Eye />
+                                        </Button>
+                                    </Link>
                                     <Button className="bg-violet-600 text-white hover:bg-violet-700">
                                         <Edit />
                                     </Button>

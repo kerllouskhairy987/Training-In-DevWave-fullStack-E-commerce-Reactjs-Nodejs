@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Avatar from '@mui/material/Avatar';
 import { Star } from "lucide-react";
 const ReviewCard = ({feedback}: any) => {
   return (
     <div className="max-w-2xl p-4  rounded-lg  bg-white">
       {/* User Info */}
       <div className="flex items-center gap-3">
-      <Avatar alt="Remy Sharp" src="../../assets/4e1fe19dc3d2e8bd41df2867d0b18cb49bba2ff3.png" />
+      {/* <Avatar alt="Remy Sharp" src="../../assets/4e1fe19dc3d2e8bd41df2867d0b18cb49bba2ff3.png" /> */}
         <span className="font-semibold text-gray-800">Brooke</span>
       </div>
 

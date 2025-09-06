@@ -14,7 +14,9 @@ export const store = configureStore({
         getDefaultMiddleware()
             .concat(dashboardApi.middleware)
             .concat(shoppingApi.middleware),
-})
+    },
+
+)
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>

@@ -1,20 +1,19 @@
-import type { IFormField } from "@/interfaces"
+import type { IFormField } from "@/interfaces";
 
 const useFormFields = ({ slug }: { slug: string }) => {
-
     const createCategoryFields = (): IFormField[] => [
         {
             name: "name",
             label: "Category Name",
             type: "text",
-            autoFocus: true
+            autoFocus: true,
         },
         {
             name: "description",
             label: "Category description",
             type: "text",
         },
-    ]
+    ];
 
     const createProductFields = (): IFormField[] => [
         {
@@ -44,43 +43,41 @@ const useFormFields = ({ slug }: { slug: string }) => {
             type: "number",
         },
         {
-            name: "banner",
-            label: "Banner",
-            type: "file",
+            name: "images",
+            label: "Product Images",
+            type: "image-upload",
+            maxImages: 5,
         },
         {
             name: "stars",
             label: "Stars",
             type: "number",
+            max: 5
         },
         {
             name: "discount",
             label: "Discount",
             type: "number",
+            max: 100
         },
-        // {
-        //     name: "category",
-        //     label: "Category",
-        //     type: "text",
-        // }
-    ]
+    ];
 
     const getFormFields = (): IFormField[] => {
         switch (slug) {
             case "create-product":
-                return createProductFields()
+                return createProductFields();
             case "create-category":
-                return createCategoryFields()
+                return createCategoryFields();
             case "update":
-                return []
+                return [];
             default:
-                return []
+                return [];
         }
-    }
+    };
 
     return {
-        getFormFields
-    }
-}
+        getFormFields,
+    };
+};
 
-export default useFormFields
+export default useFormFields;

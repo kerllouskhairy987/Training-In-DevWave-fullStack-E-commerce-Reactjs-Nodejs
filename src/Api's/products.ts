@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios"
 
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YjU4ZTMwMGIyOGQ5OTI3YWY2NzNmMSIsImVtYWlsIjoibW02MzMxMzI5QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NzA2MTMwMCwiZXhwIjoxNzU3MTQ3NzAwfQ.ei6-w_xZvkfs1QaLWCojhESG_nRM2xfS13aC8q7NGew"
+const token = localStorage.getItem("userToken")
 export async function getProducts() {
     try {
 

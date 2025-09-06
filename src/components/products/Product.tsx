@@ -7,7 +7,7 @@ import axios from "axios";
 // import MultiActionAreaCard from "../ui/Card";
 // import Sidebar from "../ui/Sidebar";
 const Sidebar = React.lazy(() => import("../ui/Sidebar"));
-const MultiActionAreaCard = React.lazy(() => import("../ui/Card"));
+const MultiActionAreaCard = React.lazy(() => import("../ui/card"));
 import { getProducts, getFilterdProducts } from "../../Api's/products";
 
 const token = localStorage.getItem("userToken");
@@ -50,7 +50,7 @@ export default function Products() {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
-        
+
         const brandOptions = data.brands.map((brand: string[]) => ({
           label: brand,
           value: brand,
