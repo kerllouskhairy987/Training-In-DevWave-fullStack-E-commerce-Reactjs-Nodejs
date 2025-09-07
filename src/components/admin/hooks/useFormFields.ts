@@ -56,9 +56,59 @@ const useFormFields = ({ slug }: { slug: string }) => {
         },
         {
             name: "discount",
-            label: "Discount",
+            label: "Percent Discount (%)",
             type: "number",
             max: 100
+        },
+    ];
+
+    const updateProductFields = (): IFormField[] => [
+        {
+            name: "name",
+            label: "Title",
+            type: "text",
+            autoFocus: true,
+        },
+        {
+            name: "description",
+            label: "Description",
+            type: "text",
+        },
+        {
+            name: "price",
+            label: "Price",
+            type: "number",
+        },
+        {
+            name: "stock",
+            label: "Stock",
+            type: "number",
+        },
+        {
+            name: "images",
+            label: "Product Images",
+            type: "image-upload",
+            maxImages: 5,
+        },
+        {
+            name: "deliveryDate",
+            label: "DeliveryDate",
+            type: "text",
+        },
+        {
+            name: "stars",
+            label: "Stars",
+            type: "number",
+        },
+        {
+            name: "discount",
+            label: "Discount In Percentage",
+            type: "number",
+        },
+        {
+            name: "saleRate",
+            label: "SaleRate",
+            type: "number",
         },
     ];
 
@@ -69,7 +119,7 @@ const useFormFields = ({ slug }: { slug: string }) => {
             case "create-category":
                 return createCategoryFields();
             case "update":
-                return [];
+                return updateProductFields();
             default:
                 return [];
         }

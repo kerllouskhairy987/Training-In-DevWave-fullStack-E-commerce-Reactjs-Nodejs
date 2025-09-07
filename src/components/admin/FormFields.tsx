@@ -20,6 +20,7 @@ const FormFields = (props: IProps) => {
     readOnly,
     maxImages,
     max,
+    defaultValue,
     onImagesChange,
   } = props;
 
@@ -48,6 +49,7 @@ const FormFields = (props: IProps) => {
         readOnly={readOnly}
         className="border border-yellow-600"
         max={max? max : undefined}
+        defaultValue={defaultValue}
       />
       {error && <span className="text-red-500">{error}</span>}
     </div>

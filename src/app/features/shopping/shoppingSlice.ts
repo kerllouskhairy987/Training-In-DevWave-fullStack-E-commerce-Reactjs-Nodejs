@@ -44,15 +44,12 @@ export const shoppingApi = createApi({
         // Remove From Cart
         DeleteFromCart: builder.mutation<{ status: boolean, message: string }, { productId: string }>({
             query: ({ productId }) => ({
-                url: `/api/cart/remove-from-cart`,
+                url: `/api/cart/remove-from-cart/${productId}`,
                 method: 'DELETE',
                 headers: {
                     Authorization: localStorage.getItem('userToken')
                         ? `Bearer ${localStorage.getItem('userToken')}`
                         : "",
-                },
-                body: {
-                    productId
                 }
             }),
             invalidatesTags: ["shopping"],

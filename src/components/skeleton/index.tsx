@@ -146,4 +146,45 @@ const CartSkeleton = () => {
   )
 }
 
-export { DashboardProductsTableSkeleton, AllCategoriesSkeleton, CartSkeleton }
+
+const UserSkeleton = () => {
+  return (
+    <>
+      <div className="flex-1 px-2 py-4 !overflow-hidden">
+        <Table className="bg-blue-700/50 overflow-x-auto">
+          <TableHeader className="w-full">
+            <TableRow>
+              <TableHead className="px-2">ID</TableHead>
+              <TableHead className="px-2">Email</TableHead>
+              <TableHead className="px-2">Role</TableHead>
+              <TableHead className="px-2 text-right">Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {[...Array(5)].map((_, i) => (
+              <TableRow key={i} className="even:bg-blue-600/50 w-full">
+                <TableCell className="font-medium overflow-hidden">
+                  <Skeleton className="h-4 w-32 bg-blue-400/50" />
+                </TableCell>
+                <TableCell className="whitespace-pre-wrap line-clamp-3 pb-0 my-5">
+                  <Skeleton className="h-4 w-52 bg-blue-400/50" />
+                </TableCell>
+                <TableCell>
+                  <Skeleton className="h-4 w-20 bg-blue-400/50" />
+                </TableCell>
+                <TableCell className="text-right">
+                  <div className="flex items-center justify-end gap-2">
+                    <Skeleton className="h-8 w-24 rounded-md bg-violet-400/50" />
+                    <Skeleton className="h-8 w-10 rounded-md bg-red-400/50" />
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+    </>
+  )
+}
+
+export { DashboardProductsTableSkeleton, AllCategoriesSkeleton, CartSkeleton, UserSkeleton } 

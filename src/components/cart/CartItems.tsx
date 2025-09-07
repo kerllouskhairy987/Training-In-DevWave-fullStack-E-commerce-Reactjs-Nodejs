@@ -85,10 +85,10 @@ const CartItems = () => {
                                                     {item.price} $
                                                 </strong>
                                                 <AlertModal isLoading={isLoadingDelete}
-                                                    onDelete={() => handleDeleteFromCart(item._id)}
+                                                    onDelete={() => handleDeleteFromCart(item.product._id)}
                                                 >
                                                     <Button
-                                                        onClick={() => { console.log(item._id) }}
+                                                        onClick={() => { console.log(item.product._id) }}
                                                         variant="destructive"
                                                         className="border"
                                                     >

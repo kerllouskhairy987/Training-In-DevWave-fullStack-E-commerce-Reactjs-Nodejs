@@ -10,12 +10,13 @@ import { getProductFeedback, getProductStats, getSingleProduct } from '../../Api
 import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'react-router-dom'
 import { useAddToCartMutation } from '@/app/features/shopping/shoppingSlice'
-import { useAppSelector } from '@/app/hooks/hooks'
+import { useAppDispatch, useAppSelector } from '@/app/hooks/hooks'
 import type { RootState } from '@/app/store'
 import SpinnerComponent from '../ui/Spinner'
 import { useEffect } from 'react'
 import { ErrorToast, successToast } from '@/notification'
 import { Button } from '../ui/button'
+import { selectedValue } from '@/app/features/globals'
 
 export default function ProductDetails() {
 
@@ -29,7 +30,7 @@ export default function ProductDetails() {
     refetchOnMount: true
   });
 
-  console.log("--/......", singleProduct)
+  const dispatch = useAppDispatch()
 
 
   const {
@@ -66,12 +67,14 @@ export default function ProductDetails() {
   const [addToCart, { isLoading, data, isSuccess, error }] = useAddToCartMutation()
   console.log("=-=-= product", data, error)
 
-  const { quantityInCart } = useAppSelector((state: RootState) => state.globals)
+  const { valueInSelected } = useAppSelector((state: RootState) => state.globals)
 
 
   const handleAddToCart = () => {
     console.log("added to cart")
-    addToCart({ productId: ourProduct?._id, quantity: Number(quantityInCart) })
+    addToCart({ productId: ourProduct?._id, quantity: Number(valueInSelected) })
+    // clean up the state
+    dispatch(selectedValue(undefined))
   }
 
   useEffect(() => {

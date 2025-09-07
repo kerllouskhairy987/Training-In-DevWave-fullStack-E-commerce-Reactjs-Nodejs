@@ -1,4 +1,4 @@
-import { Home, LayoutDashboard, Plus, ProportionsIcon } from "lucide-react"
+import { Home, LayoutDashboard, Plus, ProportionsIcon, User } from "lucide-react"
 import { Link, Navigate, useLocation } from "react-router-dom"
 
 const DashboardAside = () => {
@@ -29,6 +29,11 @@ const DashboardAside = () => {
             title: "Products",
             href: "/dashboard/products",
             icon: <ProportionsIcon />
+        },
+        {
+            title: "Users",
+            href: "/dashboard/users",
+            icon: <User />
         },
     ]
 

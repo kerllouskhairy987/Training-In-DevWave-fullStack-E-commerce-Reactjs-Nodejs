@@ -12,6 +12,8 @@ import DashboardCreateCategory from "./pages/admin/DashboardCategory";
 import DashboardCreateProduct from "./pages/admin/DashboardCreateProduct";
 import Products from "./components/products/Product";
 import ProductDetails from "./components/ProductDetails/ProductDetails";
+import CartPage from "./pages/CartPage";
+import DashboardUsers from "./pages/admin/DashboardUsers";
 
 function App() {
   return (
@@ -28,6 +30,7 @@ function App() {
               <Route path="login" element={<LogIn />} />
               <Route path="signup" element={<SignUp />} />
               <Route path="profile" element={<UserProfile />} />
+              <Route path="/cart" element={<CartPage />} />
               <Route path="products" element={<Products />} />
               <Route path="products/:id" element={<ProductDetails />} />
             </Route>
@@ -36,6 +39,7 @@ function App() {
             <Route path='/dashboard' element={<DashboardLayout />}>
               <Route index element={<DashboardHome />} />
               <Route path='products' element={<DashboardProducts />} />
+              <Route path='users' element={<DashboardUsers />} />
               <Route path='create-product' element={<DashboardCreateProduct />} />
               <Route path='create-category' element={<DashboardCreateCategory />} />
             </Route>

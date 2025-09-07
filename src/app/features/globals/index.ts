@@ -3,14 +3,16 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 
 export interface globalState {
     email: string,
-    quantityInCart: string
-    currentPage : number
+    valueInSelected: string | undefined | { productId: string, name: string }
+    currentPage: number
+    currentUserPagination: number
 }
 
 const initialState: globalState = {
     email: "",
     currentPage: 1,
-    quantityInCart: "1" ,
+    currentUserPagination: 1,
+    valueInSelected: undefined,
 }
 
 export const globalSlice = createSlice({
@@ -26,15 +28,19 @@ export const globalSlice = createSlice({
         currentPage: (state, action: PayloadAction<number>) => {
             state.currentPage = action.payload
         },
+        currentUserPaginationAction: (state, action: PayloadAction<number>) => {
+            state.currentUserPagination = action.payload
+        },
 
         // Get Quantity For Shopping Cart
-        getQuantityForShoppingCart: (state, action: PayloadAction<string>) => {
-            state.quantityInCart = action.payload
+        selectedValue: (state, action: PayloadAction<string | undefined>) => {
+            state.valueInSelected = action.payload
         }
+
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { emailValue, currentPage, getQuantityForShoppingCart } = globalSlice.actions
+export const { emailValue, currentPage, currentUserPaginationAction, selectedValue } = globalSlice.actions
 
 export default globalSlice.reducer

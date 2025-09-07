@@ -5,19 +5,21 @@ import SpinnerComponent from "../ui/Spinner"
 import FormFields from "./FormFields"
 import useFormFields from "./hooks/useFormFields"
 import { ErrorToast, successToast } from "@/notification"
-import { useCreateProductMutation } from "@/app/features/Dashboard/dashboardSlice"
+import { useCreateProductMutation, useGetAllCategoriesQuery } from "@/app/features/Dashboard/dashboardSlice"
 import MultipleSelect from "../ui/SelectionButton"
 import { useState } from "react";
-// import type { ICreateProduct } from "@/interfaces"
+import { useAppSelector } from "@/app/hooks/hooks"
+import type { RootState } from "@/app/store"
 
 const FormCreateProduct = () => {
 
     const [uploadedImages, setUploadedImages] = useState<string[]>([]);
     const { getFormFields } = useFormFields({ slug: "create-product" });
+    const [categoriesName, setCategoriesName] = useState<Record<string, string>[]>([])
+
+    const { valueInSelected } = useAppSelector((state: RootState) => state.globals)
 
     const formRef = useRef<HTMLFormElement>(null)
-
-    // const { getFormFields } = useFormFields({ slug: "create-product" })
 
     const handleImagesChange = (images: string[]) => {
         setUploadedImages(images);
@@ -25,20 +27,25 @@ const FormCreateProduct = () => {
 
     // Create Product
     const [createProduct, { isLoading, data: dataCreateProduct, isSuccess, error }] = useCreateProductMutation();
-    console.log("_____+", { isLoading, error })
 
-    // -------------------------------------------------
+    // ------------------------------------------------categories part-
     // Get All Categories
-    // const { isLoading: isLoadingAllCategories, data: allCategories } = useGetAllCategoriesQuery()
-    // console.log(isLoadingAllCategories, allCategories)
+    const { isLoading: isLoadingAllCategories, data: allCategories } = useGetAllCategoriesQuery()
+    console.log(isLoadingAllCategories, allCategories?.categories)
+
+    useEffect(() => {
+        if (allCategories?.categories.length === 0) return
+        allCategories?.categories.map((category) => {
+            setCategoriesName((prev) => [...prev, { id: category._id, name: category.name }])
+        })
+    }, [allCategories?.categories])
+    // -------------------------------------------------categories part-
 
     const submitHandlerCreateProduct = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log("Form submitted with images:", uploadedImages);
 
         const date = new Date();
         const currentDate = date.toISOString();
-        console.log(currentDate)
 
 
         if (!formRef.current) return;
@@ -47,10 +54,8 @@ const FormCreateProduct = () => {
         formData.forEach((value, key) => {
             if (key === "price" || key === "discount" || key === "stock" || key === "stars") {
                 data[key] = +value;
-                console.log("number", +value)
             } else {
                 data[key] = value.toString();
-                console.log("string", value)
             }
         });
 
@@ -67,7 +72,7 @@ const FormCreateProduct = () => {
             brand: brand as string,
             description: description as string,
             price: price as number,
-            category: "68ba136613295fcae2f5e4ec",
+            category: valueInSelected as string,
             stock: stock as number,
             images: uploadedImages,
             deliveryDate: currentDate,
@@ -76,13 +81,13 @@ const FormCreateProduct = () => {
             saleRate: 1000
         })
     }
-    
+
     useEffect(() => {
         if (error) {
             const err = error as { data: { message: string } };
             ErrorToast({ message: `${err.data.message}, All Fields Are Required` })
         }
-        
+
         if (isSuccess) {
             successToast({ message: dataCreateProduct.message })
             formRef.current?.reset()
@@ -103,9 +108,10 @@ const FormCreateProduct = () => {
                 />
             ))}
 
-            <MultipleSelect />
-
-
+            <div className="flex flex-col gap-1">
+                <p>Select Category</p>
+                <MultipleSelect dataToMap={categoriesName} />
+            </div>
 
             <Button type={isLoading ? "button" : "submit"} className="bg-yellow-500 text-white hover:bg-blue-500/40">
                 {isLoading ? <SpinnerComponent /> : "Create Product"}

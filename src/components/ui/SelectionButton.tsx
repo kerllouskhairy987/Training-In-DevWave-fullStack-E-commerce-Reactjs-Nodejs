@@ -1,6 +1,5 @@
-import { getQuantityForShoppingCart } from "@/app/features/globals";
-import { useAppDispatch, useAppSelector } from "@/app/hooks/hooks";
-import type { RootState } from "@/app/store";
+import { selectedValue } from "@/app/features/globals";
+import { useAppDispatch } from "@/app/hooks/hooks";
 import {
   Select,
   SelectContent,
@@ -11,22 +10,62 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-const quantities = [
-  1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-];
 
-export default function MultipleSelect() {
-  const { quantityInCart } = useAppSelector((state: RootState) => state.globals)
+interface IProps {
+  dataToMap?: Record<string, string>[]
+}
+
+const initialState = [
+  {
+    id: "1",
+    name: "one",
+  },
+  {
+    id: "2",
+    name: "two",
+  },
+  {
+    id: "3",
+    name: "three",
+  },
+  {
+    id: "4",
+    name: "four",
+  },
+  {
+    id: "5",
+    name: "five",
+  },
+  {
+    id: "6",
+    name: "six",
+  },
+  {
+    id: "7",
+    name: "seven",
+  },
+  {
+    id: "8",
+    name: "eight",
+  },
+  {
+    id: "9",
+    name: "nine",
+  }
+]
+
+export default function MultipleSelect({ dataToMap = initialState }: IProps) {
   const dispatch = useAppDispatch();
 
 
   const handleChange = (value: string) => {
-    dispatch(getQuantityForShoppingCart(value));
+    console.log(value)
+    dispatch(selectedValue(value));
   };
 
   return (
     <div>
-      <Select value={quantityInCart} onValueChange={handleChange}>
+      <Select onValueChange={handleChange}>
         <SelectTrigger className="w-[180px]">
           <SelectValue placeholder="Select a fruit" />
         </SelectTrigger>
@@ -34,9 +73,9 @@ export default function MultipleSelect() {
           <SelectGroup>
             <SelectLabel>my quantity</SelectLabel>
             {
-              quantities.map((quantity) => (
-                <SelectItem key={quantity} value={String(quantity)}>
-                  {quantity}
+              dataToMap.map((select, index: number) => (
+                <SelectItem key={index} value={select.id}>
+                  {select.name}
                 </SelectItem>
               ))
             }

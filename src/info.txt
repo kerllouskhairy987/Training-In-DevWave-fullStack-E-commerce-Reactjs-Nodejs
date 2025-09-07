@@ -1,0 +1,51 @@
+kerolos khairy {
+    Dashboard {
+        Design
+        Logic
+
+        content: {
+            ✅ category: {
+                Make CRUD Operation{
+                    1- Create Category
+                    2- Read Categories
+                    3- Update Category
+                    4- Delete Category
+                }
+            }
+
+            ✅ Product: {
+                Make CRUD Operation {
+                    1- Create Product
+                    2- Read Products
+                    3- Update Product
+                    4- Delete Product
+                }
+            }
+
+            ✅ User: {
+                1- Change Role Of User
+                2- Delete User
+                3- Filtration With Email 
+                4- Finding Users With Your Limit
+            }
+
+            ✅ Code Reviewer In FrontEnd
+            
+            ✅ Error Handling 
+
+            ✅ Pagination For [Products && Users]
+        }
+    }
+
+    In Website {
+        ✅ State Management: {
+            1- Add To Cart With Quantity
+            2- Remove Form Cart
+            3- Clear Cart
+        }
+
+        ✅ Convert Javascript Code And JSX Code To Typescript And TSX Code
+
+        ✅ Fix Conflict Between Branches In GitHub
+    }
+}

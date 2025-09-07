@@ -9,8 +9,10 @@ export interface IProduct {
     brand: string;
     stars: number;
     category: string;
-    thumbnail: string;
+    // thumbnail: string;
     images: string[];
+    deliveryDate: string;
+    saleRate: number;
 }
 
 export interface ICategory {
@@ -49,6 +51,49 @@ export interface ICreateProduct {
     images: string[],
     saleRate: number,
     deliveryDate: string;
+}
+
+// -------------------------For Users---------------------------
+export interface IUser {
+    _id: string;
+    email: string;
+    password: string;
+    role: "admin" | "user";
+    loginOtp?: string;
+    otpExpiration?: string;
+}
+
+export interface IUserResponse {
+    success: boolean;
+    data: IUser[];
+}
+
+export interface IChangeRoleUser {
+    _id: string;
+    email: string;
+    role: "admin" | "user";
+}
+
+export interface ISearchUsers {
+    _id: string
+    email: string
+    password: string
+    role: string
+    loginOtp?: string
+    otpExpiration?: string
+}
+
+export interface ISearchUsersResponse {
+    success: boolean;
+    data: ISearchUsers[]
+    total: number;
+    page: string;
+    pages: number
+}
+
+export interface IChangeRoleUserResponse {
+    success: boolean;
+    data: IUser;
 }
 
 export interface IFormField {

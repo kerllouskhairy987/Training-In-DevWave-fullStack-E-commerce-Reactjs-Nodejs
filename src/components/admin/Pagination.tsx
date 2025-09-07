@@ -1,36 +1,57 @@
-import { useEffect, useState } from "react"
 import { Button } from "../ui/button"
-import { useAppDispatch } from "@/app/hooks/hooks"
-import { currentPage } from "@/app/features/globals"
+import { useAppDispatch, useAppSelector } from "@/app/hooks/hooks"
+import { currentPage, currentUserPaginationAction } from "@/app/features/globals";
+import type { RootState } from "@/app/store";
+import { useLocation } from "react-router-dom";
 
 const Pagination = ({ pages }: { pages: number | undefined }) => {
-    const [page, setPage] = useState(1)
 
-    const dispatch = useAppDispatch()
+    const { pathname } = useLocation()
 
-    useEffect(() => {
-        dispatch(currentPage(page))
-    }, [page, dispatch])
+    const { currentPage: currentPageNumber, currentUserPagination } = useAppSelector((state: RootState) => state.globals)
+    const dispatch = useAppDispatch();
 
     const handlePageDecrease = () => {
-        setPage(prev => prev - 1)
+        if (pathname === "/dashboard/users") {
+            dispatch(currentUserPaginationAction(currentUserPagination - 1))
+            return
+        }
+        dispatch(currentPage(currentPageNumber - 1))
     }
 
     const handlePageIncrease = () => {
-        setPage(prev => prev + 1)
+        if (pathname === "/dashboard/users") {
+            dispatch(currentUserPaginationAction(currentUserPagination + 1))
+            return
+        }
+        dispatch(currentPage(currentPageNumber + 1))
     }
 
     return (
         <div className="flex items-center justify-center gap-3 my-5">
-            <Button disabled={page === 1} className={page === 1 ? "cursor-not-allowed opacity-50" : ""}
-                onClick={handlePageDecrease}
-            >Prev</Button>
 
-            <span>{page} of {pages}</span>
+            {
+                pathname === "/dashboard/users"
+                    ? <>
+                        <Button disabled={currentUserPagination === 1} className={currentUserPagination === 1 ? "cursor-not-allowed opacity-50" : ""}
+                            onClick={handlePageDecrease}
+                        >Prev</Button>
+                        <span>{currentUserPagination} of {pages}</span>
+                        <Button disabled={currentUserPagination === pages} className={currentUserPagination === pages ? "cursor-not-allowed opacity-50" : ""}
+                            onClick={handlePageIncrease}
+                        >Next</Button>
+                    </>
+                    : <>
+                        <Button disabled={currentPageNumber === 1} className={currentPageNumber === 1 ? "cursor-not-allowed opacity-50" : ""}
+                            onClick={handlePageDecrease}
+                        >Prev</Button>
+                        <span>{currentPageNumber} of {pages}</span>
+                        <Button disabled={currentPageNumber === pages} className={currentPageNumber === pages ? "cursor-not-allowed opacity-50" : ""}
+                            onClick={handlePageIncrease}
+                        >Next</Button>
+                    </>
+            }
 
-            <Button disabled={page === pages} className={page === pages ? "cursor-not-allowed opacity-50" : ""}
-                onClick={handlePageIncrease}
-            >Next</Button>
         </div>
     )
 }

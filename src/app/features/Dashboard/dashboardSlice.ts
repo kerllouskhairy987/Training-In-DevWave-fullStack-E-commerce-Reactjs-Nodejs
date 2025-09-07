@@ -1,4 +1,5 @@
-import type { ICreateCAtegoryResponse, ICreateProduct, IResponseCategory, IResponseProduct } from '@/interfaces'
+
+import type { IChangeRoleUserResponse, ICreateCAtegoryResponse, ICreateProduct, IProduct, IResponseCategory, IResponseProduct, ISearchUsersResponse } from '@/interfaces'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const dashboardApi = createApi({
@@ -7,6 +8,8 @@ export const dashboardApi = createApi({
     refetchOnMountOrArgChange: true,
     refetchOnFocus: true,
     baseQuery: fetchBaseQuery({ baseUrl: 'https://training-in-dev-wave-full-stack-e-c.vercel.app' }),
+
+    // --------------------------For Products-----------------------
     endpoints: (builder) => ({
         // Get Products
         getProducts: builder.query<IResponseProduct, { page: number }>({
@@ -21,6 +24,11 @@ export const dashboardApi = createApi({
             }),
             providesTags: ['Product'],
         }),
+
+        // Get Single Product
+        // getSingleProduct: builder.query<IResponseProduct, { id: string }>({
+
+        // })
 
         // Create Product
         createProduct: builder.mutation<{ status: boolean, message: string }, ICreateProduct>({
@@ -45,19 +53,54 @@ export const dashboardApi = createApi({
                     discount,
                     saleRate,
                 },
-            })
+            }),
+            invalidatesTags: ['Product'],
         }),
 
+        // Delete Product
+        deleteProduct: builder.mutation<{ status: boolean, message: string }, { id: string }>({
+            query: ({ id }) => ({
+                url: `/api/products/delete/${id}`,
+                method: 'DELETE',
+                headers: {
+                    Authorization: localStorage.getItem('userToken')
+                        ? `Bearer ${localStorage.getItem('userToken')}`
+                        : "",
+                },
+            }),
+            invalidatesTags: ['Product'],
+        }),
 
+        // Edit(Update) Product
+        updateProduct: builder.mutation<{ status: boolean, message: string }, { id: string, data: ICreateProduct }>({
+            query: ({ id, data }) => ({
+                url: `/api/products/update/${id}`,
+                method: 'PUT',
+                headers: {
+                    Authorization: localStorage.getItem('userToken')
+                        ? `Bearer ${localStorage.getItem('userToken')}`
+                        : "",
+                },
+                body: data,
+            }),
+            invalidatesTags: ['Product'],
+        }),
 
+        // Get Single Product
+        getSingleProduct: builder.query<IProduct, { id: string }>({
+            query: ({ id }) => ({
+                url: `/api/products/${id}`,
+                method: 'GET',
+                headers: {
+                    Authorization: localStorage.getItem('userToken')
+                        ? `Bearer ${localStorage.getItem('userToken')}`
+                        : "",
+                },
+            }),
+            providesTags: ['Product'],
+        }),
 
-
-
-
-
-
-
-        // -------------------------------------------------
+        // ------------------------For Category-------------------------
         // Get All Categories
         getAllCategories: builder.query<IResponseCategory, void>({
             query: () => ({
@@ -70,6 +113,21 @@ export const dashboardApi = createApi({
                 },
             }),
             providesTags: ['Product'],
+        }),
+
+
+        // Get Single Category
+        getSingleCategory: builder.mutation<IResponseCategory, { id: string }>({
+            query: ({ id }) => ({
+                url: `/api/categories/${id}`,
+                method: 'GET',
+                headers: {
+                    Authorization: localStorage.getItem('userToken')
+                        ? `Bearer ${localStorage.getItem('userToken')}`
+                        : "",
+                }
+            }),
+            invalidatesTags: ['Product'],
         }),
 
         // Create Category
@@ -121,11 +179,58 @@ export const dashboardApi = createApi({
             }),
             invalidatesTags: ['Product'],
         }),
+
+        // -------------------------------For Users-----------------------
+        // Change Role Of User
+        changeRole: builder.mutation<IChangeRoleUserResponse, { userId: string, role: "admin" | "user" }>({
+            query: ({ userId, role }) => ({
+                url: `/api/users/${userId}/role`,
+                method: "PUT",
+                headers: {
+                    Authorization: localStorage.getItem('userToken')
+                        ? `Bearer ${localStorage.getItem('userToken')}`
+                        : "",
+                },
+                body: {
+                    role
+                }
+            }),
+            invalidatesTags: ['Product'],
+        }),
+
+        // Delete User
+        deleteUser: builder.mutation<{ status: number, message: string }, { userId: string }>({
+            query: ({ userId }) => ({
+                url: `/api/users/${userId}`,
+                method: "DELETE",
+                headers: {
+                    Authorization: localStorage.getItem('userToken')
+                        ? `Bearer ${localStorage.getItem('userToken')}`
+                        : "",
+                },
+            }),
+            invalidatesTags: ['Product'],
+        }),
+
+        // Search In Users
+        searchUsers: builder.mutation<ISearchUsersResponse, { searchTerm: string, limit: number, page: number }>({
+            query: ({ searchTerm, limit = 10, page }) => ({
+                url: `/api/users?page=${page}&limit=${limit}&searchTerm=${searchTerm}`,
+                method: "GET",
+                headers: {
+                    Authorization: localStorage.getItem('userToken')
+                        ? `Bearer ${localStorage.getItem('userToken')}`
+                        : "",
+                }
+            }),
+            invalidatesTags: ['Product'],
+        })
     }),
 })
 
 export const {
-    useGetProductsQuery, useCreateProductMutation,
-    useGetAllCategoriesQuery, useCreateCategoryMutation, useUpdateCategoryMutation, useDeleteCategoryMutation
+    useGetProductsQuery, useGetSingleProductQuery, useCreateProductMutation, useDeleteProductMutation, useUpdateProductMutation,
+    useGetAllCategoriesQuery, useGetSingleCategoryMutation, useCreateCategoryMutation, useUpdateCategoryMutation, useDeleteCategoryMutation,
+    useSearchUsersMutation, useChangeRoleMutation, useDeleteUserMutation
 }
     = dashboardApi
