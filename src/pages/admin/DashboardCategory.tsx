@@ -3,6 +3,8 @@ import {
   useDeleteCategoryMutation,
   useGetAllCategoriesQuery,
 } from "@/app/features/Dashboard/dashboardSlice";
+import { useAppSelector } from "@/app/hooks/hooks";
+import type { RootState } from "@/app/store";
 import AlertModal from "@/components/admin/AlertModal";
 import CustomModal from "@/components/admin/CustomModal";
 import FormFields from "@/components/admin/FormFields";
@@ -19,6 +21,8 @@ const DashboardCreateCategory = () => {
   const formRef = useRef<HTMLFormElement>(null);
 
   const { getFormFields } = useFormFields({ slug: "create-category" });
+
+  const { network } = useAppSelector((state: RootState) => state.globals);
 
   // Get All Categories
   const { isLoading: isLoadingAllCategories, data: allCategories } =
@@ -116,7 +120,7 @@ const DashboardCreateCategory = () => {
         <h2 className="text-black font-bold text-center my-6">
           All Categories
         </h2>
-        {isLoadingAllCategories ? (
+        {isLoadingAllCategories || !network ? (
           <AllCategoriesSkeleton />
         ) : (
           allCategories?.categories.map((category) => (
@@ -147,7 +151,8 @@ const DashboardCreateCategory = () => {
 
                 <AlertModal
                   isLoading={isLoadingDelete}
-                  deleteCategoryHandler={() => deleteCategoryHandler(category._id)}
+
+                  onDelete={() => deleteCategoryHandler(category._id)}
                 >
                   <Button variant={"destructive"}>
                     <Trash /> Delete

@@ -6,6 +6,7 @@ export interface globalState {
     valueInSelected: string | undefined | { productId: string, name: string }
     currentPage: number
     currentUserPagination: number
+    network: boolean
 }
 
 const initialState: globalState = {
@@ -13,6 +14,7 @@ const initialState: globalState = {
     currentPage: 1,
     currentUserPagination: 1,
     valueInSelected: undefined,
+    network: true
 }
 
 export const globalSlice = createSlice({
@@ -35,12 +37,16 @@ export const globalSlice = createSlice({
         // Get Quantity For Shopping Cart
         selectedValue: (state, action: PayloadAction<string | undefined>) => {
             state.valueInSelected = action.payload
-        }
+        },
 
+        // Network Connection
+        networkMode: (state, action: PayloadAction<boolean>) => {
+            state.network = action.payload
+        }
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { emailValue, currentPage, currentUserPaginationAction, selectedValue } = globalSlice.actions
+export const { emailValue, currentPage, currentUserPaginationAction, selectedValue, networkMode } = globalSlice.actions
 
 export default globalSlice.reducer

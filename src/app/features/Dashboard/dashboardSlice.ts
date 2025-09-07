@@ -25,11 +25,6 @@ export const dashboardApi = createApi({
             providesTags: ['Product'],
         }),
 
-        // Get Single Product
-        // getSingleProduct: builder.query<IResponseProduct, { id: string }>({
-
-        // })
-
         // Create Product
         createProduct: builder.mutation<{ status: boolean, message: string }, ICreateProduct>({
             query: ({ brand, description, discount, price, stars, stock, name, category, deliveryDate, images, saleRate }) => ({

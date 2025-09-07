@@ -17,8 +17,7 @@ import { useEffect, useState } from "react"
 const DashboardUsers = () => {
     const [searchEmail, setSearchEmail] = useState("")
 
-    const { currentUserPagination, valueInSelected } = useAppSelector((state: RootState) => state.globals)
-    console.log("______________+++++", valueInSelected)
+    const { currentUserPagination, valueInSelected, network } = useAppSelector((state: RootState) => state.globals)
 
     const tableHeading = ["id", "email", "role", "actions"];
 
@@ -84,7 +83,7 @@ const DashboardUsers = () => {
     if (isErrorGetUsers) return <div className="flex items-center bg-black w-full h-screen justify-center"><ErrorHandling /></div>
 
     return (
-        <div className="flex-1 px-2 py-4 !overflow-hidden">
+        <div className="flex-1 px-2 py-4 overflow-x-auto bg-[#15283c] min-h-screen ">
             <div className="flex flex-col sm:flex-row gap-4 justify-between items-center mb-5 sm:mb-0">
                 <div className="flex-1 w-full">
                     <Label className="mb-2 cursor-pointer" htmlFor="search">
@@ -96,11 +95,11 @@ const DashboardUsers = () => {
                 <MultipleSelect dataToMap={userSelection} />
             </div>
             {
-                isLoadingGetUsers
+                isLoadingGetUsers || !network
                     ? <UserSkeleton />
                     :
                     <>
-                        <Table className="bg-blue-700/50 overflow-x-auto ">
+                        <Table className="bg-[#15283c] overflow-x-auto ">
                             <TableCaption className=" text-yellow-600 font-bold text-sm">A list of your recent products.</TableCaption>
                             <TableHeader className="w-full">
                                 <TableRow>

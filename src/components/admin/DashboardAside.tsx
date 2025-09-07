@@ -42,16 +42,17 @@ const DashboardAside = () => {
     }
 
     return (
-        <div className="sticky top-0 left-0 w-fit md:w-[300px] bg-white h-screen px-2 py-4">
+        <div className="sticky top-0 left-0 w-[50px] md:min-w-[300px] bg-[#15283c] h-screen px-2 py-4">
             <ul className="flex flex-col gap-2">
                 {
                     asideLinks.map((link) => (
                         <li key={link.href}>
                             <Link to={link.href} title={link.title}
                                 className={`
-                                    ${pathname === link.href ? "bg-blue-900/70 text-white" : ""}
-                                    ${link.href.startsWith("/dashboard/create") ? "bg-yellow-600/70 text-white w-fit" : ""}
-                                    sticky top-0 left-0 hi flex gap-2 justify-center md:justify-start items-center px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-blue-900/70 hover:text-white`}
+                                    ${pathname === link.href ? "bg-blue-900/70 text-black" : ""}
+                                    ${pathname === link.href ? "bg-white text-[#15283C]" : ""}
+                                    ${link.href === "/dashboard/create-product" ? "bg-yellow-600/70 text-white" : ""}
+                                    sticky top-0 left-0 hi flex gap-2 justify-center md:justify-start items-center w-fit px-3 py-2 rounded-md text-base font-medium  hover:bg-white hover:text-yellow-600/70`}
                             >
                                 {link.icon}
                                 <span className="hidden md:block">{link.title}</span>

@@ -1,7 +1,6 @@
 import {
-useDeleteProductMutation,
-useGetProductsQuery,
-useGetSingleProductQuery
+    useDeleteProductMutation,
+    useGetProductsQuery,
 } from "@/app/features/Dashboard/dashboardSlice"
 import { useAppSelector } from "@/app/hooks/hooks"
 import type { RootState } from "@/app/store"
@@ -31,7 +30,8 @@ import { Link } from "react-router-dom"
 const DashboardProducts = () => {
 
     const [getUpdatedProductId, setGetUpdatedProductId] = useState<string | null>(null)
-    const { currentPage } = useAppSelector((state: RootState) => state.globals)
+    console.log(getUpdatedProductId)
+    const { currentPage, network } = useAppSelector((state: RootState) => state.globals)
 
     const tableHeading = ["id", "name", "brand", "description", "price", "category", "stock", "stars", "discount", "images", "actions",]
 
@@ -54,26 +54,18 @@ const DashboardProducts = () => {
 
     // Get All Products
     const { isLoading, data, isError } = useGetProductsQuery({ page: currentPage })
-    console.log("))))))))))))", data)
-
-    // Get Single Product
-    const { isLoading: isLoadingSingleProduct, data: dataSingleProduct, isError: isErrorSingleProduct, } = useGetSingleProductQuery({ id: getUpdatedProductId as string })
-    console.log({ isLoadingSingleProduct, dataSingleProduct, isErrorSingleProduct })
-
-    // const [getSingleCategory, { data: dataSingleCategory }] = useGetSingleCategoryMutation()
-    // console.log("000000000000", dataSingleCategory)
 
     const getSingleProductDetails = (id: string) => {
         setGetUpdatedProductId(id)
     }
 
 
-    if (isLoading) return <DashboardProductsTableSkeleton />
+    if (isLoading || !network) return <DashboardProductsTableSkeleton />
     if (isError) return <div className="flex justify-center min-h-screen items-center bg-black w-full"><ErrorHandling /></div>
 
     return (
-        <div className="flex-1 px-2 py-4 !overflow-hidden">
-            <Table className="bg-blue-700/50 overflow-x-auto">
+        <div className="flex-1 px-2 py-4 !overflow-hidden bg-[#15283c]">
+            <Table className="overflow-x-auto">
                 <TableCaption className=" text-yellow-600 font-bold text-sm">A list of your recent products.</TableCaption>
                 <TableHeader>
                     <TableRow>

@@ -31,3 +31,19 @@ export const ErrorToast = ({ message }: { message: string }) => {
         })
     )
 }
+
+let errorToastId: string | undefined;
+export const InternetErrorToastFnc = (isOnline: boolean) => {
+    if (isOnline) {
+        toast.dismiss(errorToastId);
+        errorToastId = undefined;
+    }
+    if (!isOnline) {
+        errorToastId = toast.error("You are offline", {
+            duration: Infinity,
+            position: "top-center",
+            style: { backgroundColor: "red", color: "white" },
+            icon: "🚫",
+        });
+    }
+};

@@ -16,21 +16,25 @@ const MainCarousel = () => {
               <img
                 src="src/assets/f2fbe9b84327c8c1db6cabbeef327465bbb07fca.jpg"
                 alt=""
-                className="h-[40vh] md:h-[50vh]  lg:h-[80vh] w-full object-cover"
+                className="h-[40vh] md:h-[50vh]  lg:h-[80vh] xl:h-[60vh] w-full object-cover"
               />
             </CarouselItem>
             <CarouselItem>
               <img
                 src="src/assets/f2fbe9b84327c8c1db6cabbeef327465bbb07fca.jpg"
                 alt=""
-                className="h-[40vh]   md:h-[50vh] lg:h-[80vh] w-full object-cover"
+
+                   className="h-[40vh]   md:h-[50vh] lg:h-[80vh] xl:h-[60vh] w-full object-cover"
+
+               
+
               />
             </CarouselItem>
             <CarouselItem>
               <img
                 src="src/assets/f2fbe9b84327c8c1db6cabbeef327465bbb07fca.jpg"
                 alt=""
-                className="h-[40vh]  md:h-[50vh] lg:h-[80vh]  w-full object-cover"
+                className="h-[40vh]  md:h-[50vh] lg:h-[80vh] xl:h-[60vh]  w-full object-cover"
               />
             </CarouselItem>
           </CarouselContent>
