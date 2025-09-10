@@ -187,4 +187,133 @@ const UserSkeleton = () => {
   )
 }
 
-export { DashboardProductsTableSkeleton, AllCategoriesSkeleton, CartSkeleton, UserSkeleton } 
+const WebsiteProductSkeleton = () => {
+  return (
+    <>
+      <div className="flex flex-col gap-5">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-5">
+          {
+            Array.from({ length: 5 }).map((_, index) => (
+              <div key={index}>
+                {/* image */}
+                < div className="h-[200px] bg-gray-200 rounded-md" />
+
+                {/* title */}
+                <div className="space-y-2" >
+                  <div className="h-4 bg-gray-200 rounded w-3/4" />
+                  <div className="h-4 bg-gray-200 rounded w-1/2" />
+                </div>
+
+                {/* stars + rating */}
+                <div className="flex items-center gap-2">
+                  <div className="flex gap-[2px]">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <div key={i} className="w-4 h-4 bg-gray-200 rounded" />
+                    ))}
+                  </div>
+                  <div className="h-4 w-12 bg-gray-200 rounded" />
+                </div>
+
+                {/* price */}
+                <div className="space-y-1">
+                  <div className="h-5 bg-gray-200 rounded w-1/2" />
+                  <div className="h-3 bg-gray-200 rounded w-2/3" />
+                </div>
+
+                {/* delivery */}
+                <div className="space-y-1">
+                  <div className="h-3 bg-gray-200 rounded w-2/3" />
+                  <div className="h-3 bg-gray-200 rounded w-1/3" />
+                  <div className="h-3 bg-gray-200 rounded w-1/4" />
+                </div>
+
+                {/* button */}
+                <div className="h-9 bg-gray-300 rounded-md" />
+              </div>
+            ))
+          }
+        </div>
+      </div >
+    </>
+
+  )
+}
+
+const SingleProductSkeleton = () => {
+  return (
+    <div className="flex flex-col md:flex-row gap-6 p-6">
+
+      {/* Left Image Section */}
+      <div className="flex-1 flex justify-center items-center">
+        <Skeleton className="w-full max-w-md h-[300px] rounded-lg" />
+      </div>
+
+      {/* Middle Product Info */}
+      <div className="flex-1 max-w-xl space-y-4">
+        <Skeleton className="w-32 h-4" /> {/* Brand */}
+        <Skeleton className="w-full h-10" /> {/* Title */}
+        <Skeleton className="w-3/4 h-6" /> {/* Description */}
+
+        {/* Rating */}
+        <div className="flex items-center gap-1">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Skeleton key={i} className="w-5 h-5 rounded" />
+          ))}
+          <Skeleton className="w-16 h-4 ml-2" />
+        </div>
+
+        <hr />
+
+        {/* Price */}
+        <Skeleton className="w-32 h-8" />
+        <Skeleton className="w-40 h-4" />
+        <Skeleton className="w-60 h-4" />
+
+        {/* Small Icons Row */}
+        <div className="flex gap-6 mt-4">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <div key={i} className="flex flex-col items-center text-center text-sm gap-2">
+              <Skeleton className="w-10 h-10 rounded-full" />
+              <Skeleton className="w-20 h-4" />
+            </div>
+          ))}
+        </div>
+
+        <hr />
+
+        {/* About Item */}
+        <Skeleton className="w-40 h-6" />
+        <div className="space-y-2">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <Skeleton key={i} className="w-full h-4" />
+          ))}
+        </div>
+      </div>
+
+      {/* Right Cart Section */}
+      <div className="w-full md:w-64 border rounded-lg shadow-md p-4 space-y-3">
+        <Skeleton className="w-28 h-8" /> {/* Price */}
+        <Skeleton className="w-40 h-4" /> {/* Delivery */}
+        <Skeleton className="w-20 h-4" />
+        <Skeleton className="w-52 h-4" /> {/* Location */}
+        <Skeleton className="w-44 h-4" /> {/* Ships info */}
+        <Skeleton className="w-full h-10 rounded-md" /> {/* Add to Cart */}
+        <Skeleton className="w-full h-10 rounded-md" /> {/* Buy Now */}
+        <div className="flex gap-3">
+          <Skeleton className="w-20 h-4" />
+          <Skeleton className="w-20 h-4" />
+        </div>
+        <Skeleton className="w-full h-10" /> {/* Add to List */}
+      </div>
+    </div>
+  )
+}
+
+export {
+  DashboardProductsTableSkeleton,
+  AllCategoriesSkeleton,
+  CartSkeleton,
+  UserSkeleton,
+  WebsiteProductSkeleton,
+  SingleProductSkeleton
+} 

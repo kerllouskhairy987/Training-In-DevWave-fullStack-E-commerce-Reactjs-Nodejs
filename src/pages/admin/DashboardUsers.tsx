@@ -1,4 +1,4 @@
-import { useChangeRoleMutation, useDeleteUserMutation, useSearchUsersMutation } from "@/app/features/Dashboard/dashboardSlice"
+import { useChangeRoleMutation, useDeleteUserMutation, useSearchUsersQuery } from "@/app/features/Dashboard/dashboardSlice"
 import { useAppSelector } from "@/app/hooks/hooks"
 import type { RootState } from "@/app/store"
 import AlertModal from "@/components/admin/AlertModal"
@@ -23,7 +23,8 @@ const DashboardUsers = () => {
 
 
     // Get All Users
-    const [searchUser, { isLoading: isLoadingGetUsers, data: dataGetUsers, isError: isErrorGetUsers, isSuccess: isSuccessGetUsers }] = useSearchUsersMutation()
+    const { isLoading: isLoadingGetUsers, data: dataGetUsers, isError: isErrorGetUsers, isSuccess: isSuccessGetUsers }
+        = useSearchUsersQuery({ searchTerm: searchEmail, limit: Number(valueInSelected || 10), page: currentUserPagination })
     console.log({ isLoadingGetUsers, dataGetUsers, isErrorGetUsers, isSuccessGetUsers })
 
     const searchEmailHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +32,8 @@ const DashboardUsers = () => {
     }
 
     // Change User Role
-    const [changeUserRole, { isLoading: isLoadingChangeUserRole, error: errorChangeUserRole, isSuccess: isSuccessChangeUserRole }] = useChangeRoleMutation()
+    const [changeUserRole, { isLoading: isLoadingChangeUserRole, error: errorChangeUserRole, isSuccess: isSuccessChangeUserRole }]
+        = useChangeRoleMutation()
 
     const userSelection = [
         { id: "10", name: "10 users" },
@@ -48,16 +50,14 @@ const DashboardUsers = () => {
 
 
     // Delete User
-    const [deleteUser, { isLoading: isLoadingDeleteUser, error: errorDeleteUser, isSuccess: isSuccessDeleteUser }] = useDeleteUserMutation();
+    const [deleteUser, { isLoading: isLoadingDeleteUser, error: errorDeleteUser, isSuccess: isSuccessDeleteUser }]
+        = useDeleteUserMutation();
 
     const changeUserRoleHandler = (id: string, role: "admin" | "user") => changeUserRole({ userId: id, role })
 
     const deleteUserHandler = (id: string) => deleteUser({ userId: id });
 
     useEffect(() => {
-        // Get All Users
-        searchUser({ searchTerm: searchEmail, limit: Number(valueInSelected || 10), page: currentUserPagination })
-
         if (errorChangeUserRole) {
             const err = errorChangeUserRole as { message: string }
             ErrorToast({ message: err.message })
@@ -66,7 +66,7 @@ const DashboardUsers = () => {
         if (isSuccessChangeUserRole) {
             successToast({ message: "User role changed successfully" })
         }
-    }, [searchEmail, searchUser, currentUserPagination, valueInSelected, errorChangeUserRole, isSuccessChangeUserRole])
+    }, [errorChangeUserRole, isSuccessChangeUserRole])
 
     useEffect(() => {
         if (errorDeleteUser) {
@@ -79,7 +79,6 @@ const DashboardUsers = () => {
         }
     }, [errorDeleteUser, isSuccessDeleteUser])
 
-    // if (isLoadingGetUsers) return <UserSkeleton />
     if (isErrorGetUsers) return <div className="flex items-center bg-black w-full h-screen justify-center"><ErrorHandling /></div>
 
     return (
@@ -125,6 +124,7 @@ const DashboardUsers = () => {
                                                 <div className="flex items-center justify-end gap-2">
 
                                                     <AlertModal
+                                                        isSuccess={isSuccessChangeUserRole}
                                                         isLoading={isLoadingChangeUserRole} onDelete={() => changeUserRoleHandler(user._id, user.role === "admin" ? "user" : "admin")}
                                                         description="This will permanently to change user role"
                                                         okTxt="Change Role"
@@ -134,7 +134,9 @@ const DashboardUsers = () => {
                                                         </Button>
                                                     </AlertModal>
 
-                                                    <AlertModal isLoading={isLoadingDeleteUser} onDelete={() => deleteUserHandler(user._id)}>
+                                                    <AlertModal
+                                                    isSuccess={isSuccessDeleteUser}
+                                                        isLoading={isLoadingDeleteUser} onDelete={() => deleteUserHandler(user._id)}>
                                                         <Button variant={"destructive"}>
                                                             <Trash />
                                                         </Button>

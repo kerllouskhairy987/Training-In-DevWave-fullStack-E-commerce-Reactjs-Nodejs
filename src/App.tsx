@@ -10,10 +10,12 @@ import VerifyOTP from "./pages/verify/VerifyOtp";
 import UserProfile from "./pages/profile/ProfilePage";
 import DashboardCreateCategory from "./pages/admin/DashboardCategory";
 import DashboardCreateProduct from "./pages/admin/DashboardCreateProduct";
-import Products from "./components/products/Product";
-import ProductDetails from "./components/ProductDetails/ProductDetails";
+// import Products from "./components/products/Product";
+// import ProductDetails from "./components/ProductDetails/ProductDetails";
 import CartPage from "./pages/CartPage";
 import DashboardUsers from "./pages/admin/DashboardUsers";
+import ProductsPage from "./components/products/Products";
+import ProductDetails from "./components/ProductDetails/ProductDetails";
 
 function App() {
   return (
@@ -31,7 +33,7 @@ function App() {
               <Route path="signup" element={<SignUp />} />
               <Route path="profile" element={<UserProfile />} />
               <Route path="/cart" element={<CartPage />} />
-              <Route path="products" element={<Products />} />
+              <Route path="products" element={<ProductsPage />} />
               <Route path="products/:id" element={<ProductDetails />} />
             </Route>
 

@@ -75,6 +75,11 @@ const useFormFields = ({ slug }: { slug: string }) => {
             type: "text",
         },
         {
+            name: "brand",
+            label: "Brand",
+            type: "text",
+        },
+        {
             name: "price",
             label: "Price",
             type: "number",

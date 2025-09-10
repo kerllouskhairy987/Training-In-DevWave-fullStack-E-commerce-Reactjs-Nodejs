@@ -10,14 +10,14 @@ const Home = () => {
   const [productsByCategory, setProductsByCategory] = useState<
     Record<string, Product[]>
   >({});
-  
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const categoriesRes = await axios.get<{ categories: Category[] }>(
           "https://training-in-dev-wave-full-stack-e-c.vercel.app/api/categories/all-categories",
-         
+
         );
 
         const categoriesData = categoriesRes.data.categories;
@@ -43,10 +43,10 @@ const Home = () => {
     fetchData();
   }, []);
 
- 
-const carouselImages: string[] = categories
-  .map(cat => productsByCategory[cat._id]?.[0]?.images?.[0] || null)
-  .filter((img): img is string => img !== null);
+
+  const carouselImages: string[] = categories
+    .map(cat => productsByCategory[cat._id]?.[0]?.images?.[0] || null)
+    .filter((img): img is string => img !== null);
 
   return (
     <>
@@ -54,9 +54,9 @@ const carouselImages: string[] = categories
         <MainCarousel />
       </section>
 
-     
-      <section className="!mt-[-8rem] md:!mt-[-26rem] lg:!mt-[-7rem] xl:!mt-[-14rem] z-10 relative">
-        <div className="w-full !px-2 md:!px-8 xl:!px-20">
+
+      <section className="mt-[-8rem] md:mt-[-26rem] lg:mt-[-7rem] xl:mt-[-14rem] z-10 relative">
+        <div className="w-full px-2 md:px-8 xl:px-20">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
             {categories.slice(0, 8).map((cat) => (
               <CardAds
@@ -65,23 +65,23 @@ const carouselImages: string[] = categories
                 title={cat.name}
                 products={productsByCategory[cat._id] || []}
                 link="Explore all"
-                
+
               />
             ))}
           </div>
         </div>
       </section>
 
-      <section className="!px-2 md:!px-8 xl:!px-20 !mt-8">
+      <section className="px-2 md:px-8 xl:px-20 mt-8">
         <BestSilerCarousel
-          classname="bg-white !py-6"
+          classname="bg-white py-6"
           basis="basis-1/4 md:basis-1-5 lg:basis-1/8"
           images={carouselImages}
           title="Best Sellers in Clothing & Accessories"
         />
 
-      
-        <div className="w-full !mt-8">
+
+        <div className="w-full mt-8">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
             {categories.slice(9, 13).map((cat) => (
               <CardAds
@@ -96,7 +96,7 @@ const carouselImages: string[] = categories
         </div>
 
         <BestSilerCarousel
-          classname="bg-white !py-6 !mt-8 "
+          classname="bg-white py-6 mt-8 "
           basis="basis-1/4 md:basis-1/5 lg:basis-1/9"
           images={carouselImages}
           title="Min. 50% off | Unique kitchen finds | Amazon Brands & more"

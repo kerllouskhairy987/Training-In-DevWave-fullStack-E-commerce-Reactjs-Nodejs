@@ -16,6 +16,48 @@ export interface IProduct {
     saleRate: number;
 }
 
+export interface IProductResponse {
+    success: boolean;
+    product: {
+        _id: string;
+        name: string;
+        brand: string;
+        description: string;
+        aboutItem: string[];
+        price: number;
+        category: string;
+        stock: number;
+        stars: number;
+        deliveryDate: string;
+        discount: number;
+        saleRate: number;
+        images: string[];
+        isActive: boolean;
+    };
+}
+
+export interface ISingleProductResponse {
+    success: boolean;
+    product: IProduct
+}
+
+export interface IFeedbackResponse {
+    success: boolean;
+    feedbacks: {
+        _id: string;
+        user: {
+            _id: string | null;
+            email: string;
+            userName: string;
+        };
+        product: string;
+        rating: number;
+        comment: string;
+        createdAt: string; // ISO date
+        updatedAt: string; // ISO date
+    }[];
+}
+
 export interface ICategory {
     _id: string;
     name: string;
@@ -41,6 +83,7 @@ export interface ICreateCAtegoryResponse {
 }
 
 export interface ICreateProduct {
+    id?: string;
     brand: string,
     description: string,
     discount: number,
@@ -171,19 +214,19 @@ export interface IAddToCartResponse {
 }
 
 export interface Category {
-  _id: string;
-  name: string;
-  description?: string;
+    _id: string;
+    name: string;
+    description?: string;
 }
 export interface Product {
-  _id: string;
-  name: string;
-  description: string;
-  price: number;
-  images: string[]; 
-  category: string;
-  stock: number;  
-  createdAt?: string;
-  updatedAt?: string;
+    _id: string;
+    name: string;
+    description: string;
+    price: number;
+    images: string[];
+    category: string;
+    stock: number;
+    createdAt?: string;
+    updatedAt?: string;
 }
 

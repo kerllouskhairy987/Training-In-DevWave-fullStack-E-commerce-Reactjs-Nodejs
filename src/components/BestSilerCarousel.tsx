@@ -12,7 +12,7 @@ const BestSilerCarousel = ({ classname, basis, title, images }: IProps) => {
   return (
     <div className={classname}>
         <Carousel>
-        <h4 className="text-black font-bold  md:text-[22px] !mb-2 !ml-6">
+        <h4 className="text-black font-bold  md:text-[22px] mb-2 ml-6">
          {title}
         </h4>
         <CarouselContent className="">

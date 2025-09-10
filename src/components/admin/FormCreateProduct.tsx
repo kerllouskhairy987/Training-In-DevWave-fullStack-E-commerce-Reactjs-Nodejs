@@ -66,7 +66,6 @@ const FormCreateProduct = () => {
             return
         }
 
-
         createProduct({
             name: name as string,
             brand: brand as string,

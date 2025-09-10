@@ -93,7 +93,6 @@ const DashboardProducts = () => {
                                 <TableCell>{product.category}</TableCell>
                                 <TableCell>{product.stock}</TableCell>
                                 <TableCell>
-
                                     {
                                         product.stars ? Array.from({ length: product.stars }).map((_, i) => (
                                             <span key={i} className="text-yellow-600">⭐</span>
@@ -112,24 +111,15 @@ const DashboardProducts = () => {
                                             </Button>
                                         </Link>
 
-                                        <EditModal product={{
-                                            name: product.name,
-                                            brand: product.brand,
-                                            description: product.description,
-                                            price: product.price,
-                                            stock: product.stock,
-                                            // images: product.images
-                                            star: product.stars,
-                                            discount: product.discount,
-                                            deliveryDate: product.deliveryDate,
-                                            saleRate: product.saleRate
-                                        }} isLoading={false}>
+                                        <EditModal productId={product._id.toString()}>
                                             <Button onClick={() => getSingleProductDetails(product._id.toString())} className="bg-violet-600 text-white hover:bg-violet-700">
                                                 <Edit />
                                             </Button>
                                         </EditModal>
 
-                                        <AlertModal isLoading={isLoadingDelete} onDelete={() => onSubmitDelete(product._id.toString())}>
+                                        <AlertModal
+                                            isSuccess={isSuccessDelete}
+                                            isLoading={isLoadingDelete} onDelete={() => onSubmitDelete(product._id.toString())}>
                                             <Button variant={"destructive"}>
                                                 <Trash />
                                             </Button>

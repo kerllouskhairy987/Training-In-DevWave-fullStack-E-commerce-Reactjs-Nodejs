@@ -19,7 +19,7 @@ const CardAds = ({ title, link, classname, products, id }: IProps) => {
   const navigate = useNavigate();
 
   return (
-    <div className={`${classname} bg-white flex flex-col p-2 md:!p-4 shadow-md gap-4`}>
+    <div className={`${classname} bg-white flex flex-col p-2 md:p-4 shadow-md gap-4`}>
       <h4 className="text-black text-[10px] font-semibold md:text-[16px] md:font-bold lg:text-[18px]">
         {title}
       </h4>
@@ -46,8 +46,8 @@ const CardAds = ({ title, link, classname, products, id }: IProps) => {
       </div>
 
       <a
-        href=""
-        className="text-[#1F8394] !mt-2 md:!mt-6 text-[8px] md:text-[16px] lg:!mt-4"
+        href="#"
+        className="text-[#1F8394] mt-2 md:mt-6 text-[8px] md:text-[16px] lg:mt-4"
       >
         {link}
       </a>
