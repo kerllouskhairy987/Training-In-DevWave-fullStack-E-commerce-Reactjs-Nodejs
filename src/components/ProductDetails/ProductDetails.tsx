@@ -17,12 +17,6 @@ import RatingBreakdown from "../ui/RatingProgress";
 import ReviewCard from "../ui/ReviewCard";
 import { SingleProductSkeleton } from "../skeleton";
 import ErrorHandling from "@/error/ErrorHandling";
-// import { useAddToCartMutation } from '@/app/features/shopping/shoppingSlice'
-// import { useAppDispatch, useAppSelector } from '@/app/hooks/hooks'
-// import type { RootState } from '@/app/store'
-// import { useEffect } from 'react'
-// import { ErrorToast, successToast } from '@/notification'
-// import { selectedValue } from '@/app/features/globals'
 
 export default function ProductDetails() {
 

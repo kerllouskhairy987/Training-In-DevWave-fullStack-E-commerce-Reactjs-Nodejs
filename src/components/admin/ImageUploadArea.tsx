@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import UploadButton from "../UploadButton.tsx";
 import { Button } from "../ui/button";
-import { Card } from "../ui/Card.tsx";
+import { Card } from "./../../components/ui/card";
 import { X, Upload, Image as ImageIcon } from "lucide-react";
 
 interface ImageUploadAreaProps {

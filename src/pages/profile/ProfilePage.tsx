@@ -12,7 +12,7 @@ import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
 import axiosInstance from "@/config/axios-config";
 import SpinnerComponent from "@/components/ui/Spinner";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./../../components/ui/Card.tsx";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card";
 
 interface UserData {
     _id: string;
@@ -74,7 +74,7 @@ const UserProfile: React.FC = () => {
 
         setIsEditing(true);
         axiosInstance
-            .put(`/api/users/profile`, {email: data.email}, {
+            .put(`/api/users/profile`, { email: data.email }, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
