@@ -11,7 +11,6 @@ interface ImageUploadAreaProps {
   className?: string;
 }
 
-
 const ImageUploadArea: React.FC<ImageUploadAreaProps> = ({
   onImagesChange,
   maxImages = 5,
