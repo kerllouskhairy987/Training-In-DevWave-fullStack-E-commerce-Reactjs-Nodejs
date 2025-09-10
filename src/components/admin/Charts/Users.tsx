@@ -33,7 +33,6 @@ const UsersChart: React.FC = () => {
   const handleSelect = (option: string) => {
     setSelectedOption(option);
     setDropdownOpen(false);
-    console.log("Selected:", option);
   };
 
   const chartOptions: ApexOptions = {

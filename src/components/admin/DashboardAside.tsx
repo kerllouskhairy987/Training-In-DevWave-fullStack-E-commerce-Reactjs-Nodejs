@@ -52,7 +52,7 @@ const DashboardAside = () => {
                                     ${pathname === link.href ? "bg-blue-900/70 text-black" : ""}
                                     ${pathname === link.href ? "bg-white text-[#15283C]" : ""}
                                     ${link.href === "/dashboard/create-product" ? "bg-yellow-600/70 text-white" : ""}
-                                    sticky top-0 left-0 hi flex gap-2 justify-center md:justify-start items-center w-fit px-3 py-2 rounded-md text-base font-medium  hover:bg-white hover:text-yellow-600/70`}
+                                    sticky w-fit top-0 left-0 hi flex gap-2 justify-center md:justify-start items-center md:w-full px-3 py-2 rounded-md text-base font-medium  hover:bg-white hover:text-yellow-600/70`}
                             >
                                 {link.icon}
                                 <span className="hidden md:block">{link.title}</span>

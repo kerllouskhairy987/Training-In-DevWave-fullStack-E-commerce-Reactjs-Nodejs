@@ -34,7 +34,6 @@ const CartItems = () => {
     useEffect(() => {
         // Delete From Cart
         if (errorDelete) {
-            console.log(errorDelete)
             const err = errorDelete as { message: string }
             ErrorToast({ message: err.message })
         }
@@ -43,11 +42,14 @@ const CartItems = () => {
             successToast({ message: dataDelete?.message })
         }
 
+    }, [errorDelete, isSuccessDelete, dataDelete?.message])
+
+    useEffect(() => {
         // Clear Cart
         if (isSuccessClear) {
             successToast({ message: dataClear?.message })
         }
-    }, [errorDelete, isSuccessDelete, isSuccessClear, dataDelete?.message, dataClear?.message])
+    }, [isSuccessClear, dataClear?.message])
 
     if (isLoading) return <CartSkeleton />
     if (error) {
@@ -84,11 +86,11 @@ const CartItems = () => {
                                                 <strong className="text-accent-foreground/50 ">
                                                     {item.price} $
                                                 </strong>
-                                                <AlertModal isLoading={isLoadingDelete}
+                                                <AlertModal
+                                                    isLoading={isLoadingDelete}
                                                     onDelete={() => handleDeleteFromCart(item.product._id)}
                                                 >
                                                     <Button
-                                                        onClick={() => { console.log(item.product._id) }}
                                                         variant="destructive"
                                                         className="border"
                                                     >
@@ -122,7 +124,8 @@ const CartItems = () => {
                             </span>
                         </div>
 
-                        <AlertModal isLoading={isLoadingClear} onDelete={handleClearCart}>
+                        <AlertModal
+                            isLoading={isLoadingClear} onDelete={handleClearCart}>
                             <Button variant={"destructive"} className="w-full my-5">Clear Your Cart</Button>
                         </AlertModal>
                     </>

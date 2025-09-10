@@ -59,12 +59,11 @@ export default function MultipleSelect({ dataToMap = initialState }: IProps) {
 
 
   const handleChange = (value: string) => {
-    console.log(value)
     dispatch(selectedValue(value));
   };
 
   return (
-    <div>
+    <div className="text-black">
       <Select onValueChange={handleChange}>
         <SelectTrigger className="w-[180px]">
           <SelectValue placeholder="Select a fruit" />

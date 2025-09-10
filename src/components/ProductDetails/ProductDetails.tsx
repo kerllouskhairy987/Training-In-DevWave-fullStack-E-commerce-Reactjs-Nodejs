@@ -27,7 +27,6 @@ import ErrorHandling from "@/error/ErrorHandling";
 export default function ProductDetails() {
 
   const { id } = useParams()
-  console.log("ID", id)
 
   // Get Single Product
   const { data: dataSingleProduct, isLoading: isLoadingSingleProduct, error: errorSingleProduct }
@@ -41,13 +40,11 @@ export default function ProductDetails() {
   const dispatch = useAppDispatch()
 
   const [addToCart, { isLoading, data, isSuccess, error }] = useAddToCartMutation()
-  console.log("=-=-= product", data, error)
 
   const { valueInSelected } = useAppSelector((state: RootState) => state.globals)
 
 
   const handleAddToCart = () => {
-    console.log("added to cart")
     addToCart({ productId: dataSingleProduct?.product._id as string, quantity: Number(valueInSelected) })
     // clean up the state
     dispatch(selectedValue(undefined))
@@ -72,7 +69,7 @@ export default function ProductDetails() {
         dataSingleProduct?.product && !isLoadingSingleProduct
           ? <>
             <div>
-              <div className="flex flex-col md:flex-row gap-6 p-6">
+              <div className="flex flex-col md:flex-row gap-6 p-6 text-black">
 
                 {/* Left Image Section */}
                 <div className="flex-1 flex justify-center items-center">

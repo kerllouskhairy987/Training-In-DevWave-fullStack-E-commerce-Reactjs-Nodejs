@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/alert-dialog"
 import { Button } from "../ui/button"
 import SpinnerComponent from "../ui/Spinner";
-import { useState } from "react";
+import { memo, useState } from "react";
 
 type TProps = {
     children: React.ReactNode
@@ -18,7 +18,6 @@ type TProps = {
     title?: string
     description?: string
     okTxt?: string;
-    isSuccess: boolean
     onDelete: () => void
 }
 
@@ -29,7 +28,6 @@ const AlertModal = (
         title = "Are you absolutely sure?",
         description = "This action cannot be undone. This will permanently delete your category and remove your data from our servers.",
         okTxt = "Delete",
-        isSuccess,
         onDelete
     }: TProps) => {
 
@@ -53,7 +51,7 @@ const AlertModal = (
                         onClick={() => {
                             if (isLoading) return;
                             onDelete()
-                            if (isSuccess) setOpen(false)
+                            setOpen(false)
                         }}>
                         {isLoading ? <SpinnerComponent /> : okTxt}
                     </Button>
@@ -63,4 +61,4 @@ const AlertModal = (
     )
 }
 
-export default AlertModal
+export default memo(AlertModal)

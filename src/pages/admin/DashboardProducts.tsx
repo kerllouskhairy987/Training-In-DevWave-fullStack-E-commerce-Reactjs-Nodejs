@@ -118,7 +118,6 @@ const DashboardProducts = () => {
                                         </EditModal>
 
                                         <AlertModal
-                                            isSuccess={isSuccessDelete}
                                             isLoading={isLoadingDelete} onDelete={() => onSubmitDelete(product._id.toString())}>
                                             <Button variant={"destructive"}>
                                                 <Trash />

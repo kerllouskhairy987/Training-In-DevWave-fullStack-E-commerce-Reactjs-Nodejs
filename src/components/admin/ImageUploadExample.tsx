@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ImageUploadArea from "./ImageUploadArea";
 
 const ImageUploadExample = () => {
@@ -6,7 +6,6 @@ const ImageUploadExample = () => {
 
   const handleImagesChange = (images: string[]) => {
     setUploadedImages(images);
-    console.log("Uploaded images:", images);
   };
 
   return (

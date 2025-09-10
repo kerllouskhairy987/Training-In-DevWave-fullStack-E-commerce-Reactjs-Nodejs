@@ -40,13 +40,11 @@ const EditModal = ({ children, productId }: IProps) => {
     const { valueInSelected } = useAppSelector((state: RootState) => state.globals)
 
 
-    const { isLoading, data, error } = useGetSingleProductQuery({ id: String(productId) })
-    console.log("DATA SINGLE PRODUCT", isLoading, data, error)
+    const { data } = useGetSingleProductQuery({ id: String(productId) })
 
     // ------------------------------------------------categories part-
     // Get All Categories
     const { data: allCategories } = useGetAllCategoriesQuery()
-    // console.log(isLoadingAllCategories, allCategories?.categories)
 
     useEffect(() => {
         if (allCategories?.categories.length === 0) return
@@ -59,7 +57,6 @@ const EditModal = ({ children, productId }: IProps) => {
     // Update Product
     const [updateProduct, { isLoading: isLoadingUpdateProduct, data: dataUpdateProduct, isSuccess: isSuccessUpdateProduct, error: errorUpdateProduct }]
         = useUpdateProductMutation();
-    // console.log("UPDATE PRODUCT KEROLOS",isLoadingUpdateProduct, dataUpdateProduct, errorUpdateProduct)
 
     // Create Date
     const date = new Date();
@@ -71,7 +68,6 @@ const EditModal = ({ children, productId }: IProps) => {
 
     const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log("first", uploadedImages)
 
         if (!formRef.current) return;
         const formData = new FormData(formRef.current);

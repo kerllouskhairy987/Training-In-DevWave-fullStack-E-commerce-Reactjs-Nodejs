@@ -34,7 +34,6 @@ const CustomModal = ({ id, children, descValue, nameValue }: TProps) => {
     const submitHandlerUpdateCategory = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        console.log("first", id)
 
         if (!formRef.current) return;
         const formData = new FormData(formRef.current);
@@ -43,7 +42,6 @@ const CustomModal = ({ id, children, descValue, nameValue }: TProps) => {
             data[key] = value.toString();
         });
 
-        console.log(data)
 
         // Update Category Redux
         updateCategory({ id: id, name: data.name, description: data.description })
@@ -51,7 +49,6 @@ const CustomModal = ({ id, children, descValue, nameValue }: TProps) => {
 
     useEffect(() => {
         if (error) {
-            console.log(error)
             const err = error as { data: { message: string } }
             ErrorToast({ message: err?.data.message })
         }

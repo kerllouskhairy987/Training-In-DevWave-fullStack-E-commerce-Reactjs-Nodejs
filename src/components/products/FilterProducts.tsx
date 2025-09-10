@@ -13,7 +13,7 @@ const FilterProducts = () => {
     // Get Page Of Pagination
     const {
         websiteProductPaginationState,
-        filterProductByCategory, 
+        filterProductByCategory,
         filterProductByMinPrice,
         filterProductByMaxPrice
     }
@@ -28,13 +28,13 @@ const FilterProducts = () => {
             minPrice: filterProductByMinPrice > 0 ? filterProductByMinPrice : undefined,
             maxPrice: filterProductByMaxPrice > 0 ? filterProductByMaxPrice : undefined
         })
-    // console.log("00000000000000", isLoading, Boolean(error))
 
+    if (isLoading) return <WebsiteProductSkeleton />
     if (error) return <div className="text-red-500"><ErrorHandling /></div>
     return (
         <>
             {
-                allProducts && !isLoading
+                allProducts && allProducts?.products?.length > 0
                     ? <div className="flex flex-col gap-5">
                         <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-5">
                             {
@@ -46,7 +46,7 @@ const FilterProducts = () => {
                         {/* Pagination */}
                         <WebsiteProductPagination pages={allProducts?.pages} />
                     </div>
-                    : <WebsiteProductSkeleton />
+                    : <div className="text-red-500 font-bold text-xl text-center">No Product Found</div>
             }
         </>
     )

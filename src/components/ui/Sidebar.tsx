@@ -15,15 +15,13 @@ export default function Sidebar() {
   const dispatch = useAppDispatch()
 
   // Get All Categories
-  const { isLoading: isLoadingCategories, data: allCategories, error: errorCategories } = useGetAllCategoriesQuery()
-  console.log({ isLoadingCategories, allCategories, errorCategories })
+  const { data: allCategories } = useGetAllCategoriesQuery()
 
 
   // Filter Products Handler
   const filterProductsHandler = (categoryId: string) => {
     dispatch(filterProductByCategoryAction(categoryId))
     dispatch(websiteProductPaginationAction(1))
-    console.log(categoryId)
   }
 
   const filterProductByPriceHandler = (minPrice: number, maxPrice: number) => {

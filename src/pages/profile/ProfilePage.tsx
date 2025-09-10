@@ -34,7 +34,6 @@ const UserProfile: React.FC = () => {
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
 
-    console.log(userData);
     const {
         register,
         handleSubmit,
@@ -54,12 +53,10 @@ const UserProfile: React.FC = () => {
                         Authorization: `Bearer ${token}`,
                     },
                 });
-                console.log(res.data);
                 if (res.data) {
                     setUserData(res.data.data);
                     setValue("email", res.data.data.email);
                     setSelectedImage(res.data.data.image);
-                    console.log(res);
                 }
             } catch (error) {
                 console.error("Failed to fetch user data:", error);
@@ -72,7 +69,6 @@ const UserProfile: React.FC = () => {
     }, [setValue]);
 
     const onSubmit = (data: FormValues) => {
-        console.log(data);
         // const formData = new FormData();
         // formData.append("email", data.email as string);
 

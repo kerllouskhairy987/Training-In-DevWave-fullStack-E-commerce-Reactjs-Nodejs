@@ -30,8 +30,7 @@ const FormCreateProduct = () => {
 
     // ------------------------------------------------categories part-
     // Get All Categories
-    const { isLoading: isLoadingAllCategories, data: allCategories } = useGetAllCategoriesQuery()
-    console.log(isLoadingAllCategories, allCategories?.categories)
+    const { data: allCategories } = useGetAllCategoriesQuery()
 
     useEffect(() => {
         if (allCategories?.categories.length === 0) return

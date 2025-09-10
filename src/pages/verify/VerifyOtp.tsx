@@ -47,7 +47,6 @@ const VerifyOTP: React.FC = () => {
     // Send Data Verify To Backend
     const handleVerify = async () => {
         const code = otp.join("");
-        console.log("OTP Code:", code);
         setIsLoading(true)
 
         try {
@@ -55,7 +54,6 @@ const VerifyOTP: React.FC = () => {
                 email: email,
                 otp: code
             })
-            console.log("from function", data)
             localStorage.setItem('userToken', data.token)
             localStorage.setItem("userRole", data.user.role)
             successToast({ message: `${data.message}, You will be redirected to ${data.user.role === 'admin' ? 'Dashboard' : 'Profile'} page` });
@@ -75,7 +73,6 @@ const VerifyOTP: React.FC = () => {
             const err = error as { response: { data: { message: string } } }
             ErrorToast({ message: err.response.data.message })
             setIsLoading(false)
-            console.log(error)
         } finally {
             setIsLoading(false)
         }

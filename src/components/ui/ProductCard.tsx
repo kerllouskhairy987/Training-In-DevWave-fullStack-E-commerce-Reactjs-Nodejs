@@ -6,8 +6,6 @@ type TProps = {
     product: IProduct
 }
 const ProductCard = ({ product }: TProps) => {
-    // console.log(product)
-
 
     return (
         <Link to={`/products/${product._id}`}>

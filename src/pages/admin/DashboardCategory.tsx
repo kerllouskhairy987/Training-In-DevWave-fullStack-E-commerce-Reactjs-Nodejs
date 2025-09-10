@@ -31,7 +31,6 @@ const DashboardCreateCategory = () => {
   // Create Category
   const [createCategory, { isLoading, data: responseDate, isSuccess, error }] =
     useCreateCategoryMutation();
-  console.log(responseDate, isSuccess);
 
   const submitHandlerCreateCategory = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -54,7 +53,6 @@ const DashboardCreateCategory = () => {
 
   useEffect(() => {
     if (error) {
-      console.log(error);
       const err = error as { data: { message: string } };
       ErrorToast({ message: err.data.message });
     }
@@ -76,13 +74,10 @@ const DashboardCreateCategory = () => {
       error: errorDelete,
     },
   ] = useDeleteCategoryMutation();
-  console.log(isLoadingDelete, dateDelete, errorDelete, isSuccessDelete);
-
   const deleteCategoryHandler = (id: string) => deleteCategory({ id });
 
   useEffect(() => {
     if (errorDelete) {
-      console.log(errorDelete);
       const err = errorDelete as { data: { message: string } };
       ErrorToast({ message: err.data.message });
     }
@@ -151,7 +146,6 @@ const DashboardCreateCategory = () => {
 
                 <AlertModal
                   isLoading={isLoadingDelete}
-
                   onDelete={() => deleteCategoryHandler(category._id)}
                 >
                   <Button variant={"destructive"}>

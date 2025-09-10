@@ -30,7 +30,6 @@ export default function SignUp() {
 
     function handleRegister(formValues: registerValues) {
         setIsLoading(true);
-        console.log(formValues)
         axios.post(`https://training-in-dev-wave-full-stack-e-c.vercel.app/api/auth/register`, formValues)
             .then(() => {
                 setIsLoading(false);
@@ -38,7 +37,6 @@ export default function SignUp() {
             })
             .catch((apiResponse) => {
                 setApiError(apiResponse?.response?.data?.message);
-                console.log(apiResponse?.response?.data?.message);
                 setIsLoading(false)
 
             })
