@@ -12,7 +12,7 @@ import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
 import axiosInstance from "@/config/axios-config";
 import SpinnerComponent from "@/components/ui/Spinner";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/cardMui";
 
 interface UserData {
     _id: string;
@@ -66,7 +66,7 @@ const UserProfile: React.FC = () => {
         };
 
         fetchUserData();
-    }, [setValue]);
+    }, [setValue, token]);
 
     const onSubmit = (data: FormValues) => {
         // const formData = new FormData();

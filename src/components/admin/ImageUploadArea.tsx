@@ -2,8 +2,8 @@
 import React, { useState } from "react";
 import UploadButton from "../UploadButton.tsx";
 import { Button } from "../ui/button";
-import { Card } from "./../../components/ui/card";
 import { X, Upload, Image as ImageIcon } from "lucide-react";
+import { Card } from "../ui/cardMui.tsx";
 
 interface ImageUploadAreaProps {
   onImagesChange: (images: string[]) => void;
